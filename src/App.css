@@ -1,0 +1,27 @@
+.mobileImage {
+  width: 100%;
+  height: 100%;
+  margin-top: 3rem;
+}
+
+.overlay-header,
+.overlay-p {
+  position: absolute;
+  top: 70px;
+  width: 250px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  color: white;
+  text-align: center;
+  font-family: Caveat;
+  font-weight: 300;
+}
+
+.overlay-p {
+  top: 180px;
+  width: 310px;
+  color: rgb(235, 235, 235);
+  font-family: Montserrat;
+  font-size: 1.1rem;
+}
