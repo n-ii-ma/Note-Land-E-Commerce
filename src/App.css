@@ -72,7 +72,7 @@
   }
 }
 
-@media only screen and (min-width: 650px) and (orientation: landscape) {
+@media only screen and (min-width: 600px) and (orientation: landscape) {
   .top-banner {
     justify-content: flex-start;
     background-image: url("./assets/images/header_desktop_keldgq.jpg");
