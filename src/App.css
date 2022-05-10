@@ -1,27 +1,68 @@
-.mobileImage {
+.top-banner {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  height: 100%;
-  margin-top: 3rem;
+  height: 100vh;
+  background-image: url("./assets/images/header_mobile_hmsq4f.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin-top: 3.5em;
+  text-align: center;
 }
 
-.overlay-header,
-.overlay-p {
-  position: absolute;
-  top: 70px;
+.top-banner h1 {
   width: 250px;
   margin: 0 auto;
-  left: 0;
-  right: 0;
+  margin-top: 0.25em;
   color: white;
-  text-align: center;
   font-family: Caveat;
   font-weight: 300;
+  font-size: 2rem;
 }
 
-.overlay-p {
-  top: 180px;
+.top-banner p {
   width: 310px;
+  padding-top: 0.5em;
   color: rgb(235, 235, 235);
   font-family: Montserrat;
-  font-size: 1.1rem;
+}
+
+/* Landscape Mobile */
+@media only screen and (min-width: 320px) and (orientation: landscape) {
+  .top-banner {
+    justify-content: flex-start;
+    background-image: url("./assets/images/header_desktop_keldgq.jpg");
+    background-attachment: scroll;
+    margin-top: 2.75em;
+  }
+
+  .top-banner h1 {
+    margin-top: 3.5em;
+    margin-left: 1em;
+    font-size: 2.2rem;
+  }
+
+  .top-banner p {
+    position: absolute;
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+    top: 360px;
+    width: 550px;
+    padding-top: 0;
+    font-size: 1.2rem;
+  }
+}
+
+/* Tablet Portrait */
+@media only screen and (min-width: 768px) and (orientation: portrait) {
+}
+
+/* Landscape Tablet */
+@media only screen and (min-width: 768px) and (orientation: landscape) {
+}
+
+/* Desktop */
+@media only screen and (min-width: 1200px) {
 }
