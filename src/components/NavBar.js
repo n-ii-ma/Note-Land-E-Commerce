@@ -17,6 +17,7 @@ import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material";
 
 const NavButtons = styled("div")(({ theme }) => ({
@@ -29,21 +30,14 @@ const NavButtons = styled("div")(({ theme }) => ({
   },
 }));
 
-const navLinks = [
-  {
-    name: "Shop",
-    icon: <PhoneAndroidIcon />,
-  },
-  {
-    name: "Cart",
-    icon: <ShoppingCartIcon />,
-  },
-];
-
 const NavBar = () => {
   const [open, setOpen] = useState(false);
   // eslint-disable-next-line
   const [authenticated, setAuthenticated] = useState(false);
+  // eslint-disable-next-line
+  const [invisible, setInvisible] = useState(true);
+  // eslint-disable-next-line
+  const [badgeNumber, setBadgeNumber] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenu = (e) => {
@@ -69,7 +63,9 @@ const NavBar = () => {
             aria-label="menu"
             sx={{ mr: 2, display: { sm: "none", xs: "flex" } }}
           >
-            <MenuIcon />
+            <Badge variant="dot" color="error" invisible={invisible}>
+              <MenuIcon />
+            </Badge>
           </IconButton>
           <Typography
             variant="h5"
@@ -169,19 +165,30 @@ const NavBar = () => {
           </IconButton>
           <Divider />
           <List>
-            {navLinks.map((link, index) => (
-              <ListItem key={index}>
+            <ListItem>
+              <Button
+                startIcon={<PhoneAndroidIcon />}
+                sx={{
+                  color: "white",
+                  fontFamily: "Montserrat",
+                }}
+              >
+                Shop
+              </Button>
+            </ListItem>
+            <ListItem>
+              <Badge color="error" badgeContent={badgeNumber}>
                 <Button
-                  startIcon={link.icon}
+                  startIcon={<ShoppingCartIcon />}
                   sx={{
                     color: "white",
                     fontFamily: "Montserrat",
                   }}
                 >
-                  {link.name}
+                  Cart
                 </Button>
-              </ListItem>
-            ))}
+              </Badge>
+            </ListItem>
           </List>
         </Drawer>
       </AppBar>
