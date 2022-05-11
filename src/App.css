@@ -11,7 +11,12 @@
   grid-area: banner;
 }
 
-.top-banner img {
+.landscape {
+  display: none;
+}
+
+.portrait {
+  display: block;
   width: 100%;
   height: auto;
   object-fit: cover;
@@ -34,7 +39,12 @@
   font-size: 2rem;
 }
 
-.top-banner p {
+.text-landscape {
+  display: none;
+}
+
+.text-portrait {
+  display: block;
   max-width: 300px;
   margin-top: 1em;
   color: rgb(235, 235, 235);
@@ -47,7 +57,7 @@
     font-size: 2.5rem;
   }
 
-  .top-banner p {
+  .text-portrait {
     max-width: 325px;
     font-size: 1.1rem;
   }
@@ -63,9 +73,136 @@
     font-size: 3rem;
   }
 
-  .top-banner p {
+  .text-portrait {
     max-width: 425px;
     margin-top: 2em;
     font-size: 1.4rem;
+  }
+}
+
+@media only screen and (min-width: 650px) and (orientation: landscape) {
+  .portrait {
+    display: none;
+  }
+
+  .landscape {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-top: 4em;
+  }
+
+  .top-banner article {
+    margin-top: 3em;
+    margin-left: 0.5em;
+    place-self: center start;
+  }
+
+  .top-banner h1 {
+    max-width: 225px;
+    font-size: 1.8rem;
+  }
+
+  .text-portrait {
+    display: none;
+  }
+
+  .text-landscape {
+    display: block;
+    max-width: 300px;
+    margin-bottom: 0.75em;
+    color: rgb(235, 235, 235);
+    font-family: Montserrat;
+    place-self: end center;
+  }
+}
+
+@media only screen and (min-width: 800px) and (orientation: landscape) {
+  .top-banner article {
+    margin-top: 2.5em;
+    margin-left: 0.75em;
+  }
+
+  .top-banner h1 {
+    max-width: 275px;
+    font-size: 2.25rem;
+  }
+
+  .text-landscape {
+    max-width: 400px;
+    margin-bottom: 1em;
+    font-size: 1.1rem;
+  }
+}
+
+@media only screen and (min-width: 1000px) and (orientation: landscape) {
+  .top-banner article {
+    margin-top: 2em;
+    margin-left: 1.25em;
+  }
+
+  .top-banner h1 {
+    max-width: 300px;
+    font-size: 2.5rem;
+  }
+
+  .text-landscape {
+    max-width: 500px;
+    margin-bottom: 0.8em;
+    font-size: 1.4rem;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (orientation: landscape) {
+  .top-banner article {
+    margin-top: 1.5em;
+    margin-left: 1.5em;
+  }
+
+  .top-banner h1 {
+    max-width: 350px;
+    font-size: 3rem;
+  }
+
+  .text-landscape {
+    max-width: 600px;
+    margin-bottom: 0.8em;
+    font-size: 1.6rem;
+  }
+}
+
+@media only screen and (min-width: 1500px) and (orientation: landscape) {
+  .top-banner article {
+    margin-left: 1.75em;
+  }
+
+  .top-banner h1 {
+    max-width: 500px;
+    font-size: 3.5rem;
+  }
+
+  .text-landscape {
+    max-width: 600px;
+    margin-bottom: 1.25em;
+    font-size: 1.75rem;
+  }
+}
+
+@media only screen and (min-width: 1700px) and (orientation: landscape) {
+  .top-banner article {
+    margin-top: 1.5em;
+    margin-left: 3.5em;
+  }
+
+  .top-banner h1 {
+    max-width: 500px;
+    font-size: 4rem;
+  }
+
+  .text-landscape {
+    max-width: 650px;
+    margin-bottom: 1.75em;
+    font-size: 1.9rem;
   }
 }
