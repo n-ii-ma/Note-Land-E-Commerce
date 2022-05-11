@@ -11,11 +11,11 @@
   grid-area: banner;
 }
 
-.landscape {
+.img-landscape {
   display: none;
 }
 
-.portrait {
+.img-portrait {
   display: block;
   width: 100%;
   height: auto;
@@ -81,11 +81,11 @@
 }
 
 @media only screen and (min-width: 650px) and (orientation: landscape) {
-  .portrait {
+  .img-portrait {
     display: none;
   }
 
-  .landscape {
+  .img-landscape {
     display: block;
     width: 100%;
     height: auto;
