@@ -27,8 +27,8 @@ const ProductsList = () => {
         sx={{
           fontWeight: "bold",
           fontFamily: "Quicksand",
-          fontSize: { xs: "2rem", sm: "2.25rem", md: "2.75rem" },
-          margin: "0.25em 0 0.5em 0",
+          fontSize: { xs: "2rem", sm: "2.25rem", md: "2.5rem" },
+          margin: "0.25em 0 0.75em 0",
         }}
       >
         Products
@@ -41,12 +41,12 @@ const ProductsList = () => {
           justifyContent="center"
           alignItems="center"
           sx={{
-            gap: "1.75em",
+            gap: "1.5em",
           }}
         >
           {allProducts.map((product) => (
-            <Grid item sm={4} md={3} xl={2}>
-              <Products key={product.product_id} product={product} />
+            <Grid item sm={4} md={3} xl={2} key={product.product_id}>
+              <Products product={product} />
             </Grid>
           ))}
         </Grid>
