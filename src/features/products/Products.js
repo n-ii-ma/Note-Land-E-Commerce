@@ -21,7 +21,7 @@ const Products = ({ product }) => {
         image={product.img_urls[0]}
         alt={product.name}
         title={product.name}
-        sx={{ padding: "1em 1em 0 1em" }}
+        sx={{ padding: "0.5em 0.5em 0 0.5em" }}
       />
       <CardContent>
         <Typography
