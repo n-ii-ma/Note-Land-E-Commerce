@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllProducts,
   selectLoadingProducts,
+  selectErrorProducts,
   getProducts,
 } from "../features/products/productsSlice";
 import ProductsSkeleton from "./ProductsSkeleton";
@@ -15,13 +16,14 @@ import Grid from "@mui/material/Grid";
 const ProductsList = () => {
   const allProducts = useSelector(selectAllProducts);
   const loadingProducts = useSelector(selectLoadingProducts);
+  const errorProducts = useSelector(selectErrorProducts);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
 
-  if (loadingProducts) return <ProductsSkeleton />;
+  if (loadingProducts || errorProducts) return <ProductsSkeleton />;
 
   return (
     <Container maxWidth="xl" id="products">

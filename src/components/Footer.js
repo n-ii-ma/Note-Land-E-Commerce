@@ -49,7 +49,7 @@ const Footer = () => {
           >
             <FacebookIcon sx={{ fontSize: "2.5rem", color: "black" }} />
           </IconButton>
-          <Typography paddingTop="1em">
+          <Typography variant="subtitle2" component="p" paddingTop="1em">
             &copy; {new Date().getFullYear()} Note Land Inc. All Rights Reserved
           </Typography>
         </Box>
