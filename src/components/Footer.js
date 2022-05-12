@@ -21,6 +21,7 @@ const Footer = () => {
             component="h3"
             sx={{
               fontFamily: "Caveat",
+              fontSize: { xs: "2.5rem", sm: "2.75rem", md: "3rem" },
             }}
           >
             Follow Us On
@@ -31,7 +32,12 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <InstagramIcon sx={{ fontSize: "2.5rem", color: "black" }} />
+            <InstagramIcon
+              sx={{
+                fontSize: { xs: "2rem", sm: "2.25rem", md: "2.5rem" },
+                color: "black",
+              }}
+            />
           </IconButton>
           <IconButton
             aria-label="twitter"
@@ -39,7 +45,12 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <TwitterIcon sx={{ fontSize: "2.5rem", color: "black" }} />
+            <TwitterIcon
+              sx={{
+                fontSize: { xs: "2rem", sm: "2.25rem", md: "2.5rem" },
+                color: "black",
+              }}
+            />
           </IconButton>
           <IconButton
             aria-label="facebook"
@@ -47,7 +58,12 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FacebookIcon sx={{ fontSize: "2.5rem", color: "black" }} />
+            <FacebookIcon
+              sx={{
+                fontSize: { xs: "2rem", sm: "2.25rem", md: "2.5rem" },
+                color: "black",
+              }}
+            />
           </IconButton>
           <Typography variant="subtitle2" component="p" paddingTop="1em">
             &copy; {new Date().getFullYear()} Note Land Inc. All Rights Reserved
