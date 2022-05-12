@@ -80,6 +80,7 @@ const NavBar = () => {
           </Typography>
           <NavButtons>
             <Button
+              href="#products"
               startIcon={<PhoneAndroidIcon />}
               sx={{
                 color: "black",
@@ -167,6 +168,8 @@ const NavBar = () => {
           <List>
             <ListItem>
               <Button
+                // Check if Working
+                href="#products"
                 startIcon={<PhoneAndroidIcon />}
                 sx={{
                   color: "white",

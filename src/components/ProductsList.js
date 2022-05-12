@@ -19,7 +19,7 @@ const ProductsList = () => {
   }, [dispatch]);
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" id="products">
       <Typography
         align="center"
         variant="h3"

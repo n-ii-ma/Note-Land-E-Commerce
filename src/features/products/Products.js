@@ -4,6 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Rating from "@mui/material/Rating";
 
 const Products = ({ product }) => {
   return (
@@ -35,6 +36,12 @@ const Products = ({ product }) => {
         >
           {product.name}
         </Typography>
+        <Rating
+          name="read-only-rating"
+          defaultValue={5}
+          readOnly
+          sx={{ marginBottom: "0.5em" }}
+        />
         <Typography
           variant="h5"
           component="p"
