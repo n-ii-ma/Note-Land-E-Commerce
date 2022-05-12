@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllProducts,
+  selectLoadingProducts,
   getProducts,
 } from "../features/products/productsSlice";
+import ProductsSkeleton from "./ProductsSkeleton";
 import Products from "../features/products/Products";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
@@ -12,11 +14,14 @@ import Grid from "@mui/material/Grid";
 
 const ProductsList = () => {
   const allProducts = useSelector(selectAllProducts);
+  const loadingProducts = useSelector(selectLoadingProducts);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
+
+  if (loadingProducts) return <ProductsSkeleton />;
 
   return (
     <Container maxWidth="xl" id="products">
