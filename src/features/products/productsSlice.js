@@ -13,10 +13,23 @@ export const getProducts = createAsyncThunk(
   }
 );
 
+export const getProduct = createAsyncThunk(
+  "products/getProduct",
+  async (productId) => {
+    const response = await fetch(
+      `https://e-commerce-pern.herokuapp.com/api/v1/products/${productId}`
+    );
+    if (!response.ok) throw new Error(response.statusText);
+    const data = await response.json();
+    return data;
+  }
+);
+
 const productsSlice = createSlice({
   name: "products",
   initialState: {
     allProducts: [],
+    oneProduct: [],
     isLoading: false,
     hasError: false,
   },
@@ -34,12 +47,27 @@ const productsSlice = createSlice({
       .addCase(getProducts.rejected, (state, action) => {
         state.isLoading = false;
         state.hasError = true;
+      })
+      .addCase(getProduct.pending, (state, action) => {
+        state.isLoading = true;
+        state.hasError = false;
+      })
+      .addCase(getProduct.fulfilled, (state, action) => {
+        state.allProducts = [];
+        state.oneProduct = action.payload;
+        state.isLoading = false;
+        state.hasError = false;
+      })
+      .addCase(getProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.hasError = true;
       });
   },
 });
 
 // Selectors
 export const selectAllProducts = (state) => state.products.allProducts;
+export const selectOneProduct = (state) => state.products.oneProduct;
 export const selectLoadingProducts = (state) => state.products.isLoading;
 export const selectErrorProducts = (state) => state.products.hasError;
 

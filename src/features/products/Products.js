@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -56,10 +57,16 @@ const Products = ({ product }) => {
       </CardContent>
       <CardActions sx={{ justifyContent: "flex-end" }}>
         <Button
+          component={Link}
+          to={`/product/${product.product_id}`}
           size="small"
           variant="contained"
           color="info"
-          sx={{ fontFamily: "Roboto Flex", fontWeight: "400" }}
+          sx={{
+            fontFamily: "Roboto Flex",
+            fontWeight: "400",
+            marginRight: "0.6em",
+          }}
         >
           Details
         </Button>

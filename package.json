@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^14.1.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-material-ui-carousel": "^3.3.3",
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
@@ -41,5 +42,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "overrides": {
+    "react-material-ui-carousel": {
+      "react": "^18.0.0",
+      "react-dom": "^18.0.0"
+    }
   }
 }

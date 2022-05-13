@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -50,11 +51,10 @@ const NavBar = () => {
   };
 
   // Navigate to page section
-  const onNavClick = (e, id, url) => {
+  const onNavClick = (e, id) => {
     let element = document.getElementById(id);
     e.preventDefault();
     element.scrollIntoView();
-    window.history.pushState(id, id, url);
   };
 
   return (
@@ -77,6 +77,8 @@ const NavBar = () => {
             </Badge>
           </IconButton>
           <ButtonBase
+            component={Link}
+            to="/"
             sx={{
               position: { xs: "absolute", sm: "static" },
               left: 0,
@@ -89,13 +91,13 @@ const NavBar = () => {
               component="h5"
               sx={{
                 fontFamily: "Caveat",
-                fontSize: { xs: "2.25rem", sm: "2.5rem", md: "3rem" },
+                fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
               }}
             >
               Note Land
             </Typography>
           </ButtonBase>
-          <NavButtons sx={{ zIndex: 1, marginRight: { xs: -1.5, sm: 0 } }}>
+          <NavButtons sx={{ zIndex: 1, marginRight: { xs: -1, sm: 0 } }}>
             <Button
               onClick={(e) => onNavClick(e, "products")}
               startIcon={<PhoneAndroidIcon />}
