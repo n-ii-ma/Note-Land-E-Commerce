@@ -48,6 +48,14 @@ const NavBar = () => {
     setAnchorEl(null);
   };
 
+  // Navigate to page section
+  const onNavClick = (e, id, url) => {
+    let element = document.getElementById(id);
+    e.preventDefault();
+    element.scrollIntoView();
+    window.history.pushState(id, id, url);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -80,7 +88,7 @@ const NavBar = () => {
           </Typography>
           <NavButtons>
             <Button
-              href="#products"
+              onClick={(e) => onNavClick(e, "products")}
               startIcon={<PhoneAndroidIcon />}
               sx={{
                 color: "black",
@@ -168,8 +176,7 @@ const NavBar = () => {
           <List>
             <ListItem>
               <Button
-                // Check if Working
-                href="#products"
+                onClick={(e) => onNavClick(e, "products")}
                 startIcon={<PhoneAndroidIcon />}
                 sx={{
                   color: "white",
