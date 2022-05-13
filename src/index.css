@@ -178,6 +178,7 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   font-family: "Roboto";
+  scroll-margin-top: 4.5em;
 }
 
 body {
