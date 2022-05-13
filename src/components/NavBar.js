@@ -18,6 +18,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Badge from "@mui/material/Badge";
+import ButtonBase from "@mui/material/ButtonBase";
 import { styled } from "@mui/material";
 
 const NavButtons = styled("div")(({ theme }) => ({
@@ -62,31 +63,39 @@ const NavBar = () => {
         position="fixed"
         sx={{ background: "linear-gradient(to right, #9C685B, #DACDCA)" }}
       >
-        <Toolbar>
+        <Toolbar sx={{ justifyContent: "space-between" }}>
           <IconButton
             onClick={() => setOpen(true)}
             size="large"
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{ mr: 2, display: { sm: "none", xs: "flex" } }}
+            sx={{ mr: 2, display: { sm: "none", xs: "flex" }, zIndex: 1 }}
           >
             <Badge variant="dot" color="error" invisible={invisible}>
               <MenuIcon />
             </Badge>
           </IconButton>
-          <Typography
-            variant="h5"
-            component="h5"
+          <ButtonBase
             sx={{
-              flexGrow: 1,
-              fontFamily: "Caveat",
-              fontSize: { xs: "1.75rem", sm: "2.5rem" },
+              position: { xs: "absolute", sm: "static" },
+              left: 0,
+              right: 0,
+              zIndex: 0,
             }}
           >
-            Note Land
-          </Typography>
-          <NavButtons>
+            <Typography
+              variant="h5"
+              component="h5"
+              sx={{
+                fontFamily: "Caveat",
+                fontSize: { xs: "2.25rem", sm: "2.5rem", md: "3rem" },
+              }}
+            >
+              Note Land
+            </Typography>
+          </ButtonBase>
+          <NavButtons sx={{ zIndex: 1, marginRight: { xs: -1.5, sm: 0 } }}>
             <Button
               onClick={(e) => onNavClick(e, "products")}
               startIcon={<PhoneAndroidIcon />}
@@ -166,6 +175,7 @@ const NavBar = () => {
           PaperProps={{
             sx: {
               background: "linear-gradient(to top, #9C685B44, #9C685Bff)",
+              zIndex: 1,
             },
           }}
         >
