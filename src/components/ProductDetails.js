@@ -11,7 +11,6 @@ import Card from "@mui/material/Card";
 import Carousel from "react-material-ui-carousel";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
