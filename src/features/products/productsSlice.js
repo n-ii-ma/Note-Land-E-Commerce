@@ -40,6 +40,7 @@ const productsSlice = createSlice({
         state.hasError = false;
       })
       .addCase(getProducts.fulfilled, (state, action) => {
+        state.oneProduct = [];
         state.allProducts = action.payload;
         state.isLoading = false;
         state.hasError = false;

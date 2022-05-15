@@ -37,7 +37,7 @@ const ProductDetails = () => {
   }, [dispatch, product_id]);
 
   return (
-    <div style={{ marginTop: "5em" }}>
+    <Box marginTop={{ xs: "6em", sm: "7em" }}>
       {typeof product.img_urls === "undefined" ? (
         ""
       ) : (
@@ -52,7 +52,7 @@ const ProductDetails = () => {
           >
             <Grid container direction="row">
               {/* Image Carousel */}
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} md={5}>
                 <Carousel autoPlay={false} navButtonsAlwaysVisible={true}>
                   {product.img_urls.map((image, index) => (
                     <CardMedia
@@ -62,8 +62,8 @@ const ProductDetails = () => {
                       alt={product.name}
                       key={index}
                       sx={{
-                        borderRadius: 1,
-                        maxHeight: { xs: "auto", md: "400px" },
+                        borderRadius: 3,
+                        maxHeight: { xs: "auto", md: "500px" },
                       }}
                     />
                   ))}
@@ -73,21 +73,23 @@ const ProductDetails = () => {
               <Grid
                 item
                 xs={12}
+                md={2}
                 order={{ xs: 3, md: 2 }}
                 sx={{
                   display: { sm: "none", md: "flex" },
                   marginTop: { xs: "1em", md: "0" },
+                  justifyContent: "center",
                 }}
               >
                 <Box
                   sx={{
                     display: "flex",
-                    justifyContent: "center",
+                    justifyContent: { xs: "center", md: "flex-start" },
                     flexWrap: "wrap",
                     flexDirection: { xs: "row", md: "column" },
                     "& > :not(style)": {
-                      margin: 0.5,
-                      width: { xs: 140 },
+                      margin: { xs: 0.5, md: 1.5 },
+                      width: { xs: 140, md: 130 },
                       height: 50,
                     },
                   }}
@@ -109,7 +111,7 @@ const ProductDetails = () => {
                           alignItems: "flex-start",
                         }}
                       >
-                        <Typography>
+                        <Typography variant="body1" component="p">
                           {product.specs.display[0].size}"
                         </Typography>
                         <Typography
@@ -139,7 +141,9 @@ const ProductDetails = () => {
                           alignItems: "flex-start",
                         }}
                       >
-                        <Typography>{product.specs.hardware[0].ram}</Typography>
+                        <Typography variant="body1" component="p">
+                          {product.specs.hardware[0].ram}
+                        </Typography>
                         <Typography
                           variant="subtitle2"
                           component="p"
@@ -167,7 +171,9 @@ const ProductDetails = () => {
                           alignItems: "flex-start",
                         }}
                       >
-                        <Typography>{product.specs.camera[0].photo}</Typography>
+                        <Typography variant="body1" component="p">
+                          {product.specs.camera[0].photo}
+                        </Typography>
                         <Typography
                           variant="subtitle2"
                           component="p"
@@ -195,14 +201,16 @@ const ProductDetails = () => {
                           alignItems: "flex-start",
                         }}
                       >
-                        <Typography>{product.specs.battery}</Typography>
+                        <Typography variant="body1" component="p">
+                          {product.specs.battery}
+                        </Typography>
                       </Box>
                     </Paper>
                   </Tooltip>
                 </Box>
               </Grid>
               {/* Product Name and Price */}
-              <Grid item xs={12} sm={6} order={{ xs: 2, md: 3 }}>
+              <Grid item xs={12} sm={6} md={5} order={{ xs: 2, md: 3 }}>
                 <Box marginLeft="1em">
                   <Typography
                     gutterBottom
@@ -210,7 +218,7 @@ const ProductDetails = () => {
                     component="h5"
                     sx={{
                       fontFamily: "Montserrat",
-                      fontSize: { xs: "1.4rem", md: "1.5rem" },
+                      fontSize: { xs: "1.4rem", sm: "1.5rem", md: "1.75rem" },
                       marginTop: { xs: "0.5em", sm: 0 },
                     }}
                   >
@@ -223,7 +231,7 @@ const ProductDetails = () => {
                     sx={{
                       fontWeight: "bold",
                       fontFamily: "Quicksand",
-                      fontSize: { xs: "1.4rem", md: "1.5rem" },
+                      fontSize: { xs: "1.4rem", sm: "1.5rem", md: "1.75rem" },
                       marginTop: { sm: ".5em" },
                     }}
                   >
@@ -262,7 +270,11 @@ const ProductDetails = () => {
                       size="medium"
                       variant="contained"
                       color="success"
-                      sx={{ fontFamily: "Roboto Flex", fontWeight: "400" }}
+                      sx={{
+                        fontFamily: "Roboto Flex",
+                        fontWeight: "400",
+                        fontSize: { md: "1rem" },
+                      }}
                     >
                       Add to Cart
                     </Button>
@@ -299,7 +311,7 @@ const ProductDetails = () => {
                             alignItems: "flex-start",
                           }}
                         >
-                          <Typography>
+                          <Typography variant="body1" component="p">
                             {product.specs.display[0].size}"
                           </Typography>
                           <Typography
@@ -329,7 +341,7 @@ const ProductDetails = () => {
                             alignItems: "flex-start",
                           }}
                         >
-                          <Typography>
+                          <Typography variant="body1" component="p">
                             {product.specs.hardware[0].ram}
                           </Typography>
                           <Typography
@@ -359,7 +371,7 @@ const ProductDetails = () => {
                             alignItems: "flex-start",
                           }}
                         >
-                          <Typography>
+                          <Typography variant="body1" component="p">
                             {product.specs.camera[0].photo}
                           </Typography>
                           <Typography
@@ -389,18 +401,16 @@ const ProductDetails = () => {
                             alignItems: "flex-start",
                           }}
                         >
-                          <Typography>{product.specs.battery}</Typography>
+                          <Typography variant="body1" component="p">
+                            {product.specs.battery}
+                          </Typography>
                         </Box>
                       </Paper>
                     </Tooltip>
                   </Box>
                   {/* Product Description for bigger than Mobile Screens */}
-                  <Box>
-                    <Typography
-                      variant="body1"
-                      component="p"
-                      display={{ xs: "none", md: "block" }}
-                    >
+                  <Box display={{ xs: "none", md: "block" }} marginTop="2em">
+                    <Typography variant="body1" component="p">
                       {product.description}
                     </Typography>
                   </Box>
@@ -424,7 +434,7 @@ const ProductDetails = () => {
           </Card>
         </Container>
       )}
-    </div>
+    </Box>
   );
 };
 
