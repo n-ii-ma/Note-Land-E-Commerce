@@ -20,6 +20,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
 import CropFreeIcon from "@mui/icons-material/CropFree";
 import MemoryIcon from "@mui/icons-material/Memory";
 import CameraIcon from "@mui/icons-material/Camera";
@@ -91,103 +92,113 @@ const ProductDetails = () => {
                     },
                   }}
                 >
-                  <Paper
-                    elevation={1}
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <CropFreeIcon sx={{ margin: "0 4%" }} />
-                    <Box
+                  <Tooltip title="Size & Resolution" enterTouchDelay={0}>
+                    <Paper
+                      elevation={1}
                       sx={{
                         display: "flex",
-                        flexDirection: "column",
-                        justfiyContent: "flex-start",
-                        alignItems: "flex-start",
+                        alignItems: "center",
                       }}
                     >
-                      <Typography>{product.specs.display[0].size}"</Typography>
-                      <Typography
-                        variant="subtitle2"
-                        component="p"
-                        sx={{ fontSize: "0.75rem" }}
+                      <CropFreeIcon sx={{ margin: "0 4%" }} />
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justfiyContent: "flex-start",
+                          alignItems: "flex-start",
+                        }}
                       >
-                        {product.specs.display[0].resolution} px
-                      </Typography>
-                    </Box>
-                  </Paper>
-                  <Paper
-                    elevation={1}
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <MemoryIcon sx={{ margin: "0 4%" }} />
-                    <Box
+                        <Typography>
+                          {product.specs.display[0].size}"
+                        </Typography>
+                        <Typography
+                          variant="subtitle2"
+                          component="p"
+                          sx={{ fontSize: "0.75rem" }}
+                        >
+                          {product.specs.display[0].resolution} px
+                        </Typography>
+                      </Box>
+                    </Paper>
+                  </Tooltip>
+                  <Tooltip title="RAM & Chipset" enterTouchDelay={0}>
+                    <Paper
+                      elevation={1}
                       sx={{
                         display: "flex",
-                        flexDirection: "column",
-                        justfiyContent: "flex-start",
-                        alignItems: "flex-start",
+                        alignItems: "center",
                       }}
                     >
-                      <Typography>{product.specs.hardware[0].ram}</Typography>
-                      <Typography
-                        variant="subtitle2"
-                        component="p"
-                        sx={{ fontSize: "0.75rem" }}
+                      <MemoryIcon sx={{ margin: "0 4%" }} />
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justfiyContent: "flex-start",
+                          alignItems: "flex-start",
+                        }}
                       >
-                        {product.specs.hardware[0].chipset}
-                      </Typography>
-                    </Box>
-                  </Paper>
-                  <Paper
-                    elevation={1}
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <CameraIcon sx={{ margin: "0 4%" }} />
-                    <Box
+                        <Typography>{product.specs.hardware[0].ram}</Typography>
+                        <Typography
+                          variant="subtitle2"
+                          component="p"
+                          sx={{ fontSize: "0.75rem" }}
+                        >
+                          {product.specs.hardware[0].chipset}
+                        </Typography>
+                      </Box>
+                    </Paper>
+                  </Tooltip>
+                  <Tooltip title="Photo & Video" enterTouchDelay={0}>
+                    <Paper
+                      elevation={1}
                       sx={{
                         display: "flex",
-                        flexDirection: "column",
-                        justfiyContent: "flex-start",
-                        alignItems: "flex-start",
+                        alignItems: "center",
                       }}
                     >
-                      <Typography>{product.specs.camera[0].photo}</Typography>
-                      <Typography
-                        variant="subtitle2"
-                        component="p"
-                        sx={{ fontSize: "0.75rem" }}
+                      <CameraIcon sx={{ margin: "0 4%" }} />
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justfiyContent: "flex-start",
+                          alignItems: "flex-start",
+                        }}
                       >
-                        {product.specs.camera[0].video}
-                      </Typography>
-                    </Box>
-                  </Paper>
-                  <Paper
-                    elevation={1}
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <BatteryCharging90Icon sx={{ margin: "0 4%" }} />
-                    <Box
+                        <Typography>{product.specs.camera[0].photo}</Typography>
+                        <Typography
+                          variant="subtitle2"
+                          component="p"
+                          sx={{ fontSize: "0.75rem" }}
+                        >
+                          {product.specs.camera[0].video}
+                        </Typography>
+                      </Box>
+                    </Paper>
+                  </Tooltip>
+                  <Tooltip title="Battery" enterTouchDelay={0}>
+                    <Paper
+                      elevation={1}
                       sx={{
                         display: "flex",
-                        flexDirection: "column",
-                        justfiyContent: "flex-start",
-                        alignItems: "flex-start",
+                        alignItems: "center",
                       }}
                     >
-                      <Typography>{product.specs.battery}</Typography>
-                    </Box>
-                  </Paper>
+                      <BatteryCharging90Icon sx={{ margin: "0 4%" }} />
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justfiyContent: "flex-start",
+                          alignItems: "flex-start",
+                        }}
+                      >
+                        <Typography>{product.specs.battery}</Typography>
+                      </Box>
+                    </Paper>
+                  </Tooltip>
                 </Box>
               </Grid>
               {/* Product Name and Price */}
@@ -271,105 +282,117 @@ const ProductDetails = () => {
                       },
                     }}
                   >
-                    <Paper
-                      elevation={1}
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <CropFreeIcon sx={{ margin: "0 2%" }} />
-                      <Box
+                    <Tooltip title="Size & Resolution" enterTouchDelay={0}>
+                      <Paper
+                        elevation={1}
                         sx={{
                           display: "flex",
-                          flexDirection: "column",
-                          justfiyContent: "flex-start",
-                          alignItems: "flex-start",
+                          alignItems: "center",
                         }}
                       >
-                        <Typography>
-                          {product.specs.display[0].size}"
-                        </Typography>
-                        <Typography
-                          variant="subtitle2"
-                          component="p"
-                          sx={{ fontSize: "0.75rem" }}
+                        <CropFreeIcon sx={{ margin: "0 2%" }} />
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justfiyContent: "flex-start",
+                            alignItems: "flex-start",
+                          }}
                         >
-                          {product.specs.display[0].resolution} px
-                        </Typography>
-                      </Box>
-                    </Paper>
-                    <Paper
-                      elevation={1}
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <MemoryIcon sx={{ margin: "0 2%" }} />
-                      <Box
+                          <Typography>
+                            {product.specs.display[0].size}"
+                          </Typography>
+                          <Typography
+                            variant="subtitle2"
+                            component="p"
+                            sx={{ fontSize: "0.75rem" }}
+                          >
+                            {product.specs.display[0].resolution} px
+                          </Typography>
+                        </Box>
+                      </Paper>
+                    </Tooltip>
+                    <Tooltip title="RAM & Chipset" enterTouchDelay={0}>
+                      <Paper
+                        elevation={1}
                         sx={{
                           display: "flex",
-                          flexDirection: "column",
-                          justfiyContent: "flex-start",
-                          alignItems: "flex-start",
+                          alignItems: "center",
                         }}
                       >
-                        <Typography>{product.specs.hardware[0].ram}</Typography>
-                        <Typography
-                          variant="subtitle2"
-                          component="p"
-                          sx={{ fontSize: "0.75rem" }}
+                        <MemoryIcon sx={{ margin: "0 2%" }} />
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justfiyContent: "flex-start",
+                            alignItems: "flex-start",
+                          }}
                         >
-                          {product.specs.hardware[0].chipset}
-                        </Typography>
-                      </Box>
-                    </Paper>
-                    <Paper
-                      elevation={1}
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <CameraIcon sx={{ margin: "0 2%" }} />
-                      <Box
+                          <Typography>
+                            {product.specs.hardware[0].ram}
+                          </Typography>
+                          <Typography
+                            variant="subtitle2"
+                            component="p"
+                            sx={{ fontSize: "0.75rem" }}
+                          >
+                            {product.specs.hardware[0].chipset}
+                          </Typography>
+                        </Box>
+                      </Paper>
+                    </Tooltip>
+                    <Tooltip title="Photo & Video" enterTouchDelay={0}>
+                      <Paper
+                        elevation={1}
                         sx={{
                           display: "flex",
-                          flexDirection: "column",
-                          justfiyContent: "flex-start",
-                          alignItems: "flex-start",
+                          alignItems: "center",
                         }}
                       >
-                        <Typography>{product.specs.camera[0].photo}</Typography>
-                        <Typography
-                          variant="subtitle2"
-                          component="p"
-                          sx={{ fontSize: "0.75rem" }}
+                        <CameraIcon sx={{ margin: "0 2%" }} />
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justfiyContent: "flex-start",
+                            alignItems: "flex-start",
+                          }}
                         >
-                          {product.specs.camera[0].video}
-                        </Typography>
-                      </Box>
-                    </Paper>
-                    <Paper
-                      elevation={1}
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <BatteryCharging90Icon sx={{ margin: "0 2%" }} />
-                      <Box
+                          <Typography>
+                            {product.specs.camera[0].photo}
+                          </Typography>
+                          <Typography
+                            variant="subtitle2"
+                            component="p"
+                            sx={{ fontSize: "0.75rem" }}
+                          >
+                            {product.specs.camera[0].video}
+                          </Typography>
+                        </Box>
+                      </Paper>
+                    </Tooltip>
+                    <Tooltip title="Battery" enterTouchDelay={0}>
+                      <Paper
+                        elevation={1}
                         sx={{
                           display: "flex",
-                          flexDirection: "column",
-                          justfiyContent: "flex-start",
-                          alignItems: "flex-start",
+                          alignItems: "center",
                         }}
                       >
-                        <Typography>{product.specs.battery}</Typography>
-                      </Box>
-                    </Paper>
+                        <BatteryCharging90Icon sx={{ margin: "0 2%" }} />
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justfiyContent: "flex-start",
+                            alignItems: "flex-start",
+                          }}
+                        >
+                          <Typography>{product.specs.battery}</Typography>
+                        </Box>
+                      </Paper>
+                    </Tooltip>
                   </Box>
                   {/* Product Description for bigger than Mobile Screens */}
                   <Box>
