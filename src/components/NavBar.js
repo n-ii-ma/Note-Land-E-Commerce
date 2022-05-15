@@ -20,6 +20,8 @@ import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Badge from "@mui/material/Badge";
 import ButtonBase from "@mui/material/ButtonBase";
+import Slide from "@mui/material/Slide";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
 import { styled } from "@mui/material";
 
 const NavButtons = styled("div")(({ theme }) => ({
@@ -41,6 +43,8 @@ const NavBar = () => {
   // eslint-disable-next-line
   const [badgeNumber, setBadgeNumber] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
+  // Scroll to hide App bar
+  const trigger = useScrollTrigger();
 
   const handleMenu = (e) => {
     setAnchorEl(e.currentTarget);
@@ -59,161 +63,163 @@ const NavBar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="fixed"
-        sx={{ background: "linear-gradient(to right, #9C685B, #DACDCA)" }}
-      >
-        <Toolbar sx={{ justifyContent: "space-between" }}>
-          <IconButton
-            onClick={() => setOpen(true)}
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2, display: { sm: "none", xs: "flex" }, zIndex: 1 }}
-          >
-            <Badge variant="dot" color="error" invisible={invisible}>
-              <MenuIcon />
-            </Badge>
-          </IconButton>
-          <ButtonBase
-            component={Link}
-            to="/"
-            sx={{
-              position: { xs: "absolute", sm: "static" },
-              left: 0,
-              right: 0,
-              zIndex: 0,
-            }}
-          >
-            <Typography
-              variant="h5"
-              component="h5"
+      <Slide appear={false} direction="down" in={!trigger}>
+        <AppBar
+          position="fixed"
+          sx={{ background: "linear-gradient(to right, #9C685B, #DACDCA)" }}
+        >
+          <Toolbar sx={{ justifyContent: "space-between" }}>
+            <IconButton
+              onClick={() => setOpen(true)}
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2, display: { sm: "none", xs: "flex" }, zIndex: 1 }}
+            >
+              <Badge variant="dot" color="error" invisible={invisible}>
+                <MenuIcon />
+              </Badge>
+            </IconButton>
+            <ButtonBase
+              component={Link}
+              to="/"
               sx={{
-                fontFamily: "Caveat",
-                fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+                position: { xs: "absolute", sm: "static" },
+                left: 0,
+                right: 0,
+                zIndex: 0,
               }}
             >
-              Note Land
-            </Typography>
-          </ButtonBase>
-          <NavButtons sx={{ zIndex: 1, marginRight: { xs: -1, sm: 0 } }}>
-            <Button
-              onClick={(e) => onNavClick(e, "products")}
-              startIcon={<PhoneAndroidIcon />}
-              sx={{
-                color: "black",
-                fontFamily: "Montserrat",
-                fontWeight: "bold",
-                fontSize: { sm: "1rem" },
-                display: { xs: "none", sm: "flex" },
-              }}
-            >
-              Shop
-            </Button>
-            <Button
-              startIcon={<ShoppingCartIcon />}
-              sx={{
-                color: "black",
-                fontFamily: "Montserrat",
-                fontWeight: "bold",
-                fontSize: { sm: "1rem" },
-                display: { xs: "none", sm: "flex" },
-              }}
-            >
-              Cart
-            </Button>
-            {authenticated ? (
-              <div>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle sx={{ color: "black", fontSize: "1em" }} />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem>Dashboard</MenuItem>
-                  <MenuItem>Account Settings</MenuItem>
-                </Menu>
-              </div>
-            ) : (
+              <Typography
+                variant="h5"
+                component="h5"
+                sx={{
+                  fontFamily: "Caveat",
+                  fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+                }}
+              >
+                Note Land
+              </Typography>
+            </ButtonBase>
+            <NavButtons sx={{ zIndex: 1, marginRight: { xs: -1, sm: 0 } }}>
               <Button
-                color="inherit"
-                startIcon={<LoginIcon />}
+                onClick={(e) => onNavClick(e, "products")}
+                startIcon={<PhoneAndroidIcon />}
                 sx={{
                   color: "black",
                   fontFamily: "Montserrat",
                   fontWeight: "bold",
                   fontSize: { sm: "1rem" },
-                }}
-              >
-                Login
-              </Button>
-            )}
-          </NavButtons>
-        </Toolbar>
-        <Drawer
-          anchor="left"
-          open={open}
-          onClose={() => setOpen(false)}
-          PaperProps={{
-            sx: {
-              background: "linear-gradient(to top, #9C685B44, #9C685Bff)",
-              zIndex: 1,
-            },
-          }}
-        >
-          <IconButton onClick={() => setOpen(false)}>
-            <ChevronLeftIcon sx={{ color: "white" }} />
-          </IconButton>
-          <Divider />
-          <List>
-            <ListItem>
-              <Button
-                onClick={(e) => onNavClick(e, "products")}
-                startIcon={<PhoneAndroidIcon />}
-                sx={{
-                  color: "white",
-                  fontFamily: "Montserrat",
+                  display: { xs: "none", sm: "flex" },
                 }}
               >
                 Shop
               </Button>
-            </ListItem>
-            <ListItem>
-              <Badge color="error" badgeContent={badgeNumber}>
+              <Button
+                startIcon={<ShoppingCartIcon />}
+                sx={{
+                  color: "black",
+                  fontFamily: "Montserrat",
+                  fontWeight: "bold",
+                  fontSize: { sm: "1rem" },
+                  display: { xs: "none", sm: "flex" },
+                }}
+              >
+                Cart
+              </Button>
+              {authenticated ? (
+                <div>
+                  <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleMenu}
+                    color="inherit"
+                  >
+                    <AccountCircle sx={{ color: "black", fontSize: "1em" }} />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <MenuItem>Dashboard</MenuItem>
+                    <MenuItem>Account Settings</MenuItem>
+                  </Menu>
+                </div>
+              ) : (
                 <Button
-                  startIcon={<ShoppingCartIcon />}
+                  color="inherit"
+                  startIcon={<LoginIcon />}
+                  sx={{
+                    color: "black",
+                    fontFamily: "Montserrat",
+                    fontWeight: "bold",
+                    fontSize: { sm: "1rem" },
+                  }}
+                >
+                  Login
+                </Button>
+              )}
+            </NavButtons>
+          </Toolbar>
+          <Drawer
+            anchor="left"
+            open={open}
+            onClose={() => setOpen(false)}
+            PaperProps={{
+              sx: {
+                background: "linear-gradient(to top, #9C685B44, #9C685Bff)",
+                zIndex: 1,
+              },
+            }}
+          >
+            <IconButton onClick={() => setOpen(false)}>
+              <ChevronLeftIcon sx={{ color: "white" }} />
+            </IconButton>
+            <Divider />
+            <List>
+              <ListItem>
+                <Button
+                  onClick={(e) => onNavClick(e, "products")}
+                  startIcon={<PhoneAndroidIcon />}
                   sx={{
                     color: "white",
                     fontFamily: "Montserrat",
                   }}
                 >
-                  Cart
+                  Shop
                 </Button>
-              </Badge>
-            </ListItem>
-          </List>
-        </Drawer>
-      </AppBar>
+              </ListItem>
+              <ListItem>
+                <Badge color="error" badgeContent={badgeNumber}>
+                  <Button
+                    startIcon={<ShoppingCartIcon />}
+                    sx={{
+                      color: "white",
+                      fontFamily: "Montserrat",
+                    }}
+                  >
+                    Cart
+                  </Button>
+                </Badge>
+              </ListItem>
+            </List>
+          </Drawer>
+        </AppBar>
+      </Slide>
     </Box>
   );
 };
