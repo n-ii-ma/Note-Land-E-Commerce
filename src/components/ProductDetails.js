@@ -256,6 +256,7 @@ const ProductDetails = () => {
                       Add to Cart
                     </Button>
                   </CardActions>
+                  {/* Product Specs for 600px to 900px  */}
                   <Box
                     sx={{
                       display: { xs: "none", sm: "flex", md: "none" },
@@ -265,7 +266,7 @@ const ProductDetails = () => {
                       marginTop: ".5em",
                       "& > :not(style)": {
                         margin: 0.5,
-                        width: 120,
+                        width: 125,
                         height: 50,
                       },
                     }}
