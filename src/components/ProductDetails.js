@@ -266,7 +266,7 @@ const ProductDetails = () => {
                       marginTop: ".5em",
                       "& > :not(style)": {
                         margin: 0.5,
-                        width: 125,
+                        width: 120,
                         height: 50,
                       },
                     }}
@@ -278,7 +278,7 @@ const ProductDetails = () => {
                         alignItems: "center",
                       }}
                     >
-                      <CropFreeIcon sx={{ margin: "0 4%" }} />
+                      <CropFreeIcon sx={{ margin: "0 2%" }} />
                       <Box
                         sx={{
                           display: "flex",
@@ -306,7 +306,7 @@ const ProductDetails = () => {
                         alignItems: "center",
                       }}
                     >
-                      <MemoryIcon sx={{ margin: "0 4%" }} />
+                      <MemoryIcon sx={{ margin: "0 2%" }} />
                       <Box
                         sx={{
                           display: "flex",
@@ -332,7 +332,7 @@ const ProductDetails = () => {
                         alignItems: "center",
                       }}
                     >
-                      <CameraIcon sx={{ margin: "0 4%" }} />
+                      <CameraIcon sx={{ margin: "0 2%" }} />
                       <Box
                         sx={{
                           display: "flex",
@@ -358,7 +358,7 @@ const ProductDetails = () => {
                         alignItems: "center",
                       }}
                     >
-                      <BatteryCharging90Icon sx={{ margin: "0 4%" }} />
+                      <BatteryCharging90Icon sx={{ margin: "0 2%" }} />
                       <Box
                         sx={{
                           display: "flex",
