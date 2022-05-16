@@ -225,7 +225,7 @@ const ProductDetails = () => {
               </Grid>
               {/* Product Name and Price */}
               <Grid item xs={12} sm={6} md={5} order={{ xs: 2, md: 3 }}>
-                <Box marginLeft="1em">
+                <Box marginLeft={{ xs: "0", sm: "1em" }}>
                   <Typography
                     gutterBottom
                     variant="h5"
