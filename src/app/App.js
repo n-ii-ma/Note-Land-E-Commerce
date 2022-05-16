@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import "../App.css";
 import NavBar from "../components/NavBar";
@@ -9,6 +10,17 @@ import Footer from "../components/Footer";
 import ProductsError from "../components/ProductsError";
 
 function App() {
+  // Scroll to top on every transition custom hook
+  const useScrollToTop = () => {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+      console.log("ONE");
+    }, [pathname]);
+  };
+  useScrollToTop();
+
   return (
     <div className="App">
       <div>
