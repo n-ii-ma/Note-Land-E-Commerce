@@ -33,8 +33,6 @@ const ProductsError = () => {
     >
       <Alert severity="error" sx={{ alignItems: "center" }}>
         Failed to Load the Resources
-        <br />
-        Please Consider Using a VPN
       </Alert>
     </Snackbar>
   );
