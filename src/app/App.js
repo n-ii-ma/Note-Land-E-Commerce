@@ -6,6 +6,8 @@ import NavBar from "../components/NavBar";
 import Header from "../components/Header";
 import ProductsList from "../components/ProductsList";
 import ProductDetails from "../components/ProductDetails";
+import Login from "../components/Login";
+import Register from "../components/Register";
 import Footer from "../components/Footer";
 import ProductsError from "../components/ProductsError";
 
@@ -35,6 +37,8 @@ function App() {
             }
           />
           <Route path="/product/:product_id" element={<ProductDetails />} />
+          <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/register" element={<Register />} />
         </Routes>
       </div>
       <div>
