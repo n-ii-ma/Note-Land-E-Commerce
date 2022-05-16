@@ -6,11 +6,8 @@ import CardActions from "@mui/material/CardActions";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import CropFreeIcon from "@mui/icons-material/CropFree";
 import MemoryIcon from "@mui/icons-material/Memory";
 import CameraIcon from "@mui/icons-material/Camera";
@@ -31,7 +28,10 @@ const ProductDetailsSkeleton = () => {
           <Grid container direction="row">
             {/* Image Carousel */}
             <Grid item xs={12} sm={6} md={5}>
-              {/* //////////////////////////// */}
+              <Skeleton
+                variant="rectangular"
+                sx={{ height: { xs: "300px", md: "500px" }, borderRadius: 3 }}
+              />
             </Grid>
             {/* Product Specs */}
             <Grid
@@ -58,119 +58,111 @@ const ProductDetailsSkeleton = () => {
                   },
                 }}
               >
-                <Tooltip title="Size & Resolution" enterTouchDelay={0}>
-                  <Paper
-                    elevation={1}
+                <Paper
+                  elevation={1}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <CropFreeIcon sx={{ margin: "0 4%" }} />
+                  <Box
                     sx={{
                       display: "flex",
-                      alignItems: "center",
+                      flexDirection: "column",
+                      justfiyContent: "flex-start",
+                      alignItems: "flex-start",
                     }}
                   >
-                    <CropFreeIcon sx={{ margin: "0 4%" }} />
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justfiyContent: "flex-start",
-                        alignItems: "flex-start",
-                      }}
+                    <Typography variant="body1" component="p">
+                      <Skeleton variant="text" width={90} />
+                    </Typography>
+                    <Typography
+                      variant="subtitle2"
+                      component="p"
+                      sx={{ fontSize: "0.75rem" }}
                     >
-                      <Typography variant="body1" component="p">
-                        <Skeleton variant="text" />
-                      </Typography>
-                      <Typography
-                        variant="subtitle2"
-                        component="p"
-                        sx={{ fontSize: "0.75rem" }}
-                      >
-                        {/* //////////////////////////// */}
-                      </Typography>
-                    </Box>
-                  </Paper>
-                </Tooltip>
-                <Tooltip title="RAM & Chipset" enterTouchDelay={0}>
-                  <Paper
-                    elevation={1}
+                      <Skeleton variant="text" width={90} />
+                    </Typography>
+                  </Box>
+                </Paper>
+                <Paper
+                  elevation={1}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <MemoryIcon sx={{ margin: "0 4%" }} />
+                  <Box
                     sx={{
                       display: "flex",
-                      alignItems: "center",
+                      flexDirection: "column",
+                      justfiyContent: "flex-start",
+                      alignItems: "flex-start",
                     }}
                   >
-                    <MemoryIcon sx={{ margin: "0 4%" }} />
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justfiyContent: "flex-start",
-                        alignItems: "flex-start",
-                      }}
+                    <Typography variant="body1" component="p">
+                      <Skeleton variant="text" width={90} />
+                    </Typography>
+                    <Typography
+                      variant="subtitle2"
+                      component="p"
+                      sx={{ fontSize: "0.75rem" }}
                     >
-                      <Typography variant="body1" component="p">
-                        {/* //////////////////////////// */}
-                      </Typography>
-                      <Typography
-                        variant="subtitle2"
-                        component="p"
-                        sx={{ fontSize: "0.75rem" }}
-                      >
-                        {/* //////////////////////////// */}
-                      </Typography>
-                    </Box>
-                  </Paper>
-                </Tooltip>
-                <Tooltip title="Photo & Video" enterTouchDelay={0}>
-                  <Paper
-                    elevation={1}
+                      <Skeleton variant="text" width={90} />
+                    </Typography>
+                  </Box>
+                </Paper>
+                <Paper
+                  elevation={1}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <CameraIcon sx={{ margin: "0 4%" }} />
+                  <Box
                     sx={{
                       display: "flex",
-                      alignItems: "center",
+                      flexDirection: "column",
+                      justfiyContent: "flex-start",
+                      alignItems: "flex-start",
                     }}
                   >
-                    <CameraIcon sx={{ margin: "0 4%" }} />
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justfiyContent: "flex-start",
-                        alignItems: "flex-start",
-                      }}
+                    <Typography variant="body1" component="p">
+                      <Skeleton variant="text" width={90} />
+                    </Typography>
+                    <Typography
+                      variant="subtitle2"
+                      component="p"
+                      sx={{ fontSize: "0.75rem" }}
                     >
-                      <Typography variant="body1" component="p">
-                        {/* //////////////////////////// */}
-                      </Typography>
-                      <Typography
-                        variant="subtitle2"
-                        component="p"
-                        sx={{ fontSize: "0.75rem" }}
-                      >
-                        {/* //////////////////////////// */}
-                      </Typography>
-                    </Box>
-                  </Paper>
-                </Tooltip>
-                <Tooltip title="Battery" enterTouchDelay={0}>
-                  <Paper
-                    elevation={1}
+                      <Skeleton variant="text" width={90} />
+                    </Typography>
+                  </Box>
+                </Paper>
+                <Paper
+                  elevation={1}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <BatteryCharging90Icon sx={{ margin: "0 4%" }} />
+                  <Box
                     sx={{
                       display: "flex",
-                      alignItems: "center",
+                      flexDirection: "column",
+                      justfiyContent: "flex-start",
+                      alignItems: "flex-start",
                     }}
                   >
-                    <BatteryCharging90Icon sx={{ margin: "0 4%" }} />
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justfiyContent: "flex-start",
-                        alignItems: "flex-start",
-                      }}
-                    >
-                      <Typography variant="body1" component="p">
-                        {/* //////////////////////////// */}
-                      </Typography>
-                    </Box>
-                  </Paper>
-                </Tooltip>
+                    <Typography variant="body1" component="p">
+                      <Skeleton variant="text" width={90} />
+                    </Typography>
+                  </Box>
+                </Paper>
               </Box>
             </Grid>
             {/* Product Name and Price */}
@@ -186,7 +178,7 @@ const ProductDetailsSkeleton = () => {
                     marginTop: { xs: "0.5em", sm: 0 },
                   }}
                 >
-                  {/* //////////////////////////// */}
+                  <Skeleton variant="text" width="100%" />
                 </Typography>
                 <Typography
                   gutterBottom
@@ -199,7 +191,7 @@ const ProductDetailsSkeleton = () => {
                     marginTop: { sm: ".5em" },
                   }}
                 >
-                  {/* //////////////////////////// */}
+                  <Skeleton variant="text" width="25%" />
                 </Typography>
                 {/* Color Selection */}
                 <CardActions sx={{ paddingLeft: 0, marginTop: { sm: "1em" } }}>
@@ -207,15 +199,7 @@ const ProductDetailsSkeleton = () => {
                     sx={{ marginTop: 1, minWidth: 120 }}
                     size="small"
                   >
-                    <InputLabel id="color-label">Color</InputLabel>
-                    <Select
-                      labelId="color-label"
-                      id="color"
-                      label="Color"
-                      required
-                    >
-                      {/* //////////////////////////// */}
-                    </Select>
+                    <Skeleton variant="rectangular" height={35} />
                   </FormControl>
                 </CardActions>
                 {/* Add to Cart */}
@@ -250,124 +234,125 @@ const ProductDetailsSkeleton = () => {
                     },
                   }}
                 >
-                  <Tooltip title="Size & Resolution" enterTouchDelay={0}>
-                    <Paper
-                      elevation={1}
+                  <Paper
+                    elevation={1}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <CropFreeIcon sx={{ margin: "0 2%" }} />
+                    <Box
                       sx={{
                         display: "flex",
-                        alignItems: "center",
+                        flexDirection: "column",
+                        justfiyContent: "flex-start",
+                        alignItems: "flex-start",
                       }}
                     >
-                      <CropFreeIcon sx={{ margin: "0 2%" }} />
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          justfiyContent: "flex-start",
-                          alignItems: "flex-start",
-                        }}
+                      <Typography variant="body1" component="p">
+                        <Skeleton variant="text" width={80} />
+                      </Typography>
+                      <Typography
+                        variant="subtitle2"
+                        component="p"
+                        sx={{ fontSize: "0.75rem" }}
                       >
-                        <Typography variant="body1" component="p">
-                          {/* //////////////////////////// */}
-                        </Typography>
-                        <Typography
-                          variant="subtitle2"
-                          component="p"
-                          sx={{ fontSize: "0.75rem" }}
-                        >
-                          {/* //////////////////////////// */}
-                        </Typography>
-                      </Box>
-                    </Paper>
-                  </Tooltip>
-                  <Tooltip title="RAM & Chipset" enterTouchDelay={0}>
-                    <Paper
-                      elevation={1}
+                        <Skeleton variant="text" width={80} />
+                      </Typography>
+                    </Box>
+                  </Paper>
+                  <Paper
+                    elevation={1}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <MemoryIcon sx={{ margin: "0 2%" }} />
+                    <Box
                       sx={{
                         display: "flex",
-                        alignItems: "center",
+                        flexDirection: "column",
+                        justfiyContent: "flex-start",
+                        alignItems: "flex-start",
                       }}
                     >
-                      <MemoryIcon sx={{ margin: "0 2%" }} />
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          justfiyContent: "flex-start",
-                          alignItems: "flex-start",
-                        }}
+                      <Typography variant="body1" component="p">
+                        <Skeleton variant="text" width={80} />
+                      </Typography>
+                      <Typography
+                        variant="subtitle2"
+                        component="p"
+                        sx={{ fontSize: "0.75rem" }}
                       >
-                        <Typography variant="body1" component="p">
-                          {/* //////////////////////////// */}
-                        </Typography>
-                        <Typography
-                          variant="subtitle2"
-                          component="p"
-                          sx={{ fontSize: "0.75rem" }}
-                        >
-                          {/* //////////////////////////// */}
-                        </Typography>
-                      </Box>
-                    </Paper>
-                  </Tooltip>
-                  <Tooltip title="Photo & Video" enterTouchDelay={0}>
-                    <Paper
-                      elevation={1}
+                        <Skeleton variant="text" width={80} />
+                      </Typography>
+                    </Box>
+                  </Paper>
+                  <Paper
+                    elevation={1}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <CameraIcon sx={{ margin: "0 2%" }} />
+                    <Box
                       sx={{
                         display: "flex",
-                        alignItems: "center",
+                        flexDirection: "column",
+                        justfiyContent: "flex-start",
+                        alignItems: "flex-start",
                       }}
                     >
-                      <CameraIcon sx={{ margin: "0 2%" }} />
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          justfiyContent: "flex-start",
-                          alignItems: "flex-start",
-                        }}
+                      <Typography variant="body1" component="p">
+                        <Skeleton variant="text" width={80} />
+                      </Typography>
+                      <Typography
+                        variant="subtitle2"
+                        component="p"
+                        sx={{ fontSize: "0.75rem" }}
                       >
-                        <Typography variant="body1" component="p">
-                          {/* //////////////////////////// */}
-                        </Typography>
-                        <Typography
-                          variant="subtitle2"
-                          component="p"
-                          sx={{ fontSize: "0.75rem" }}
-                        >
-                          {/* //////////////////////////// */}
-                        </Typography>
-                      </Box>
-                    </Paper>
-                  </Tooltip>
-                  <Tooltip title="Battery" enterTouchDelay={0}>
-                    <Paper
-                      elevation={1}
+                        <Skeleton variant="text" width={80} />
+                      </Typography>
+                    </Box>
+                  </Paper>
+                  <Paper
+                    elevation={1}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <BatteryCharging90Icon sx={{ margin: "0 2%" }} />
+                    <Box
                       sx={{
                         display: "flex",
-                        alignItems: "center",
+                        flexDirection: "column",
+                        justfiyContent: "flex-start",
+                        alignItems: "flex-start",
                       }}
                     >
-                      <BatteryCharging90Icon sx={{ margin: "0 2%" }} />
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          justfiyContent: "flex-start",
-                          alignItems: "flex-start",
-                        }}
-                      >
-                        <Typography variant="body1" component="p">
-                          {/* //////////////////////////// */}
-                        </Typography>
-                      </Box>
-                    </Paper>
-                  </Tooltip>
+                      <Typography variant="body1" component="p">
+                        <Skeleton variant="text" width={80} />
+                      </Typography>
+                    </Box>
+                  </Paper>
                 </Box>
                 {/* Product Description for bigger than Mobile Screens */}
                 <Box display={{ xs: "none", md: "block" }} marginTop="2em">
                   <Typography variant="body1" component="p">
-                    {/* //////////////////////////// */}
+                    <Skeleton variant="text" width="100%" />
+                    <Skeleton variant="text" width="100%" />
+                    <Skeleton variant="text" width="100%" />
+                    <Skeleton variant="text" width="100%" />
+                    <Skeleton variant="text" width="100%" />
+                    <Skeleton variant="text" width="100%" />
+                    <Skeleton variant="text" width="100%" />
+                    <Skeleton variant="text" width="100%" />
+                    <Skeleton variant="text" width="100%" />
+                    <Skeleton variant="text" width="100%" />
                   </Typography>
                 </Box>
               </Box>
@@ -382,7 +367,13 @@ const ProductDetailsSkeleton = () => {
             >
               <Box>
                 <Typography variant="body1" component="p">
-                  {/* //////////////////////////// */}
+                  <Skeleton variant="text" width="100%" />
+                  <Skeleton variant="text" width="100%" />
+                  <Skeleton variant="text" width="100%" />
+                  <Skeleton variant="text" width="100%" />
+                  <Skeleton variant="text" width="100%" />
+                  <Skeleton variant="text" width="100%" />
+                  <Skeleton variant="text" width="100%" />
                 </Typography>
               </Box>
             </Grid>

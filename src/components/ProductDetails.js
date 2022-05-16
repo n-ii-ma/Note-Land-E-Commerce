@@ -2,10 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import {
-  selectOneProduct,
-  getProduct,
-} from "../features/products/productsSlice";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import Carousel from "react-material-ui-carousel";
@@ -26,15 +22,33 @@ import MemoryIcon from "@mui/icons-material/Memory";
 import CameraIcon from "@mui/icons-material/Camera";
 import BatteryCharging90Icon from "@mui/icons-material/BatteryCharging90";
 
+import {
+  selectOneProduct,
+  selectOneLoadingProduct,
+  selectOneErrorProduct,
+  getProduct,
+} from "../features/products/productsSlice";
+import ProductDetailsSkeleton from "../components/ProductDetailsSkeleton";
+
 const ProductDetails = () => {
+  // Color selection state
   const [colorSelect, setColorSelect] = useState("");
+
   const product = useSelector(selectOneProduct);
+  const loadingProduct = useSelector(selectOneLoadingProduct);
+  const errorProduct = useSelector(selectOneErrorProduct);
   const dispatch = useDispatch();
+
+  // Get the product id from the url parameter
   const { product_id } = useParams();
 
+  // Fetch product from the api
   useEffect(() => {
     dispatch(getProduct(product_id));
   }, [dispatch, product_id]);
+
+  // Show skeleton if the product is loading or has error
+  if (loadingProduct || errorProduct) return <ProductDetailsSkeleton />;
 
   return (
     <Box marginTop={{ xs: "6em", sm: "7em" }}>

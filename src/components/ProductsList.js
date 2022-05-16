@@ -1,11 +1,5 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectAllProducts,
-  selectLoadingProducts,
-  selectErrorProducts,
-  getProducts,
-} from "../features/products/productsSlice";
 import ProductsSkeleton from "./ProductsSkeleton";
 import Products from "../features/products/Products";
 import Container from "@mui/material/Container";
@@ -13,16 +7,25 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
+import {
+  selectAllProducts,
+  selectAllLoadingProducts,
+  selectAllErrorProducts,
+  getProducts,
+} from "../features/products/productsSlice";
+
 const ProductsList = () => {
   const allProducts = useSelector(selectAllProducts);
-  const loadingProducts = useSelector(selectLoadingProducts);
-  const errorProducts = useSelector(selectErrorProducts);
+  const loadingProducts = useSelector(selectAllLoadingProducts);
+  const errorProducts = useSelector(selectAllErrorProducts);
   const dispatch = useDispatch();
 
+  // Fetch products from the api on initial page load
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
 
+  // Show skeleton if the products are loading or have error
   if (loadingProducts || errorProducts) return <ProductsSkeleton />;
 
   return (

@@ -1,27 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+import axiosApi from "../../config/axiosConfig";
+
 // Get all the products from the API
 export const getProducts = createAsyncThunk(
   "products/getProducts",
   async () => {
-    const response = await fetch(
-      "https://e-commerce-pern.herokuapp.com/api/v1/products"
-    );
-    if (!response.ok) throw new Error("Request Failed!");
-    const data = await response.json();
-    return data;
+    const response = await axiosApi.get("/products");
+    return response.data;
   }
 );
 
+// Get a product's details from the API
 export const getProduct = createAsyncThunk(
   "products/getProduct",
   async (productId) => {
-    const response = await fetch(
-      `https://e-commerce-pern.herokuapp.com/api/v1/products/${productId}`
-    );
-    if (!response.ok) throw new Error(response.statusText);
-    const data = await response.json();
-    return data;
+    const response = await axiosApi.get(`/products/${productId}`);
+    return response.data;
   }
 );
 
@@ -29,48 +24,64 @@ const productsSlice = createSlice({
   name: "products",
   initialState: {
     allProducts: [],
+    allAreLoading: false,
+    allHaveError: false,
     oneProduct: [],
-    isLoading: false,
-    hasError: false,
+    oneIsLoading: false,
+    oneHasError: false,
   },
   extraReducers: (builder) => {
     builder
       .addCase(getProducts.pending, (state, action) => {
-        state.isLoading = true;
-        state.hasError = false;
+        state.allAreLoading = true;
+        state.allHaveError = false;
+        state.oneIsLoading = false;
+        state.oneHasError = false;
       })
       .addCase(getProducts.fulfilled, (state, action) => {
-        state.oneProduct = [];
         state.allProducts = action.payload;
-        state.isLoading = false;
-        state.hasError = false;
+        state.allAreLoading = false;
+        state.allHaveError = false;
+        state.oneProduct = [];
+        state.oneIsLoading = false;
+        state.oneHasError = false;
       })
       .addCase(getProducts.rejected, (state, action) => {
-        state.isLoading = false;
-        state.hasError = true;
+        state.allAreLoading = false;
+        state.allHaveError = true;
+        state.oneIsLoading = false;
+        state.oneHasError = false;
       })
       .addCase(getProduct.pending, (state, action) => {
-        state.isLoading = true;
-        state.hasError = false;
+        state.oneIsLoading = true;
+        state.oneHasError = false;
+        state.allAreLoading = false;
+        state.allHaveError = false;
       })
       .addCase(getProduct.fulfilled, (state, action) => {
-        state.allProducts = [];
         state.oneProduct = action.payload;
-        state.isLoading = false;
-        state.hasError = false;
+        state.oneIsLoading = false;
+        state.oneHasError = false;
+        state.allProducts = [];
+        state.allAreLoading = false;
+        state.allHaveError = false;
       })
       .addCase(getProduct.rejected, (state, action) => {
-        state.isLoading = false;
-        state.hasError = true;
+        state.oneIsLoading = false;
+        state.oneHasError = true;
+        state.allAreLoading = false;
+        state.allHaveError = false;
       });
   },
 });
 
 // Selectors
 export const selectAllProducts = (state) => state.products.allProducts;
+export const selectAllLoadingProducts = (state) => state.products.allAreLoading;
+export const selectAllErrorProducts = (state) => state.products.allHaveError;
 export const selectOneProduct = (state) => state.products.oneProduct;
-export const selectLoadingProducts = (state) => state.products.isLoading;
-export const selectErrorProducts = (state) => state.products.hasError;
+export const selectOneLoadingProduct = (state) => state.products.oneIsLoading;
+export const selectOneErrorProduct = (state) => state.products.oneHasError;
 
 // Reducer
 export default productsSlice.reducer;

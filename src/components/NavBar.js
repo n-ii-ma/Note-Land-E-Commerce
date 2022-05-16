@@ -35,21 +35,28 @@ const NavButtons = styled("div")(({ theme }) => ({
 }));
 
 const NavBar = () => {
+  // Hamburger button state
   const [open, setOpen] = useState(false);
+  // Authentication state
   // eslint-disable-next-line
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(true);
+  // Badge visibility state
   // eslint-disable-next-line
   const [invisible, setInvisible] = useState(true);
+  // Badge number state
   // eslint-disable-next-line
   const [badgeNumber, setBadgeNumber] = useState(0);
+  // Position of authentication menu state
   const [anchorEl, setAnchorEl] = useState(null);
   // Scroll to hide App bar
   const trigger = useScrollTrigger();
 
+  // Set position of the menu to the current target of the event
   const handleMenu = (e) => {
     setAnchorEl(e.currentTarget);
   };
 
+  // Close the authentication menu
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -157,6 +164,7 @@ const NavBar = () => {
                   >
                     <MenuItem>Dashboard</MenuItem>
                     <MenuItem>Account Settings</MenuItem>
+                    <MenuItem>Logout</MenuItem>
                   </Menu>
                 </div>
               ) : (
