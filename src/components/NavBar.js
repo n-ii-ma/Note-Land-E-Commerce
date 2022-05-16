@@ -39,7 +39,7 @@ const NavBar = () => {
   const [open, setOpen] = useState(false);
   // Authentication state
   // eslint-disable-next-line
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
   // Badge visibility state
   // eslint-disable-next-line
   const [invisible, setInvisible] = useState(true);
