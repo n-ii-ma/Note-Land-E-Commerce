@@ -26,14 +26,14 @@ const ProductDetailsSkeleton = () => {
           }}
         >
           <Grid container direction="row">
-            {/* Image Carousel */}
+            {/* Image carousel */}
             <Grid item xs={12} sm={6} md={5}>
               <Skeleton
                 variant="rectangular"
                 sx={{ height: { xs: "300px", md: "500px" }, borderRadius: 3 }}
               />
             </Grid>
-            {/* Product Specs */}
+            {/* Product specs */}
             <Grid
               item
               xs={12}
@@ -165,7 +165,7 @@ const ProductDetailsSkeleton = () => {
                 </Paper>
               </Box>
             </Grid>
-            {/* Product Name and Price */}
+            {/* Product name and price */}
             <Grid item xs={12} sm={6} md={5} order={{ xs: 2, md: 3 }}>
               <Box marginLeft={{ xs: "0", sm: "1em" }}>
                 <Typography
@@ -193,7 +193,7 @@ const ProductDetailsSkeleton = () => {
                 >
                   <Skeleton variant="text" width="25%" />
                 </Typography>
-                {/* Color Selection */}
+                {/* Color and quantity selection */}
                 <CardActions sx={{ paddingLeft: 0, marginTop: { sm: "1em" } }}>
                   <FormControl
                     sx={{ marginTop: 1, minWidth: 120 }}
@@ -201,8 +201,14 @@ const ProductDetailsSkeleton = () => {
                   >
                     <Skeleton variant="rectangular" height={35} />
                   </FormControl>
+                  <FormControl
+                    sx={{ marginTop: 1, minWidth: 100 }}
+                    size="small"
+                  >
+                    <Skeleton variant="rectangular" height={35} />
+                  </FormControl>
                 </CardActions>
-                {/* Add to Cart */}
+                {/* Add to cart */}
                 <CardActions
                   sx={{ justifyContent: "flex-end", paddingRight: 0 }}
                 >
@@ -219,7 +225,7 @@ const ProductDetailsSkeleton = () => {
                     Add to Cart
                   </Button>
                 </CardActions>
-                {/* Product Specs for 600px to 900px  */}
+                {/* Product specs for 600px to 900px  */}
                 <Box
                   sx={{
                     display: { xs: "none", sm: "flex", md: "none" },
@@ -340,7 +346,7 @@ const ProductDetailsSkeleton = () => {
                     </Box>
                   </Paper>
                 </Box>
-                {/* Product Description for bigger than Mobile Screens */}
+                {/* Product description for bigger than mobile screens */}
                 <Box display={{ xs: "none", md: "block" }} marginTop="2em">
                   <Typography variant="body1" component="p">
                     <Skeleton variant="text" width="100%" />
@@ -357,7 +363,7 @@ const ProductDetailsSkeleton = () => {
                 </Box>
               </Box>
             </Grid>
-            {/* Product Description for Mobile Screens */}
+            {/* Product description for mobile screens */}
             <Grid
               item
               xs={12}

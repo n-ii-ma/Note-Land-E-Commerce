@@ -33,6 +33,8 @@ import ProductDetailsSkeleton from "../components/ProductDetailsSkeleton";
 const ProductDetails = () => {
   // Color selection state
   const [colorSelect, setColorSelect] = useState("");
+  // Quantity selection state
+  const [quantity, setQuantity] = useState(1);
 
   const product = useSelector(selectOneProduct);
   const loadingProduct = useSelector(selectOneLoadingProduct);
@@ -65,7 +67,7 @@ const ProductDetails = () => {
             }}
           >
             <Grid container direction="row">
-              {/* Image Carousel */}
+              {/* Image carousel */}
               <Grid item xs={12} sm={6} md={5}>
                 <Carousel autoPlay={false} navButtonsAlwaysVisible={true}>
                   {product.img_urls.map((image, index) => (
@@ -83,7 +85,7 @@ const ProductDetails = () => {
                   ))}
                 </Carousel>
               </Grid>
-              {/* Product Specs */}
+              {/* Product specs */}
               <Grid
                 item
                 xs={12}
@@ -223,7 +225,7 @@ const ProductDetails = () => {
                   </Tooltip>
                 </Box>
               </Grid>
-              {/* Product Name and Price */}
+              {/* Product name and price */}
               <Grid item xs={12} sm={6} md={5} order={{ xs: 2, md: 3 }}>
                 <Box marginLeft={{ xs: "0", sm: "1em" }}>
                   <Typography
@@ -251,7 +253,7 @@ const ProductDetails = () => {
                   >
                     ${product.price}
                   </Typography>
-                  {/* Color Selection */}
+                  {/* Color and quantity selection */}
                   <CardActions
                     sx={{ paddingLeft: 0, marginTop: { sm: "1em" } }}
                   >
@@ -275,8 +277,30 @@ const ProductDetails = () => {
                         ))}
                       </Select>
                     </FormControl>
+                    <FormControl
+                      sx={{ marginTop: 1, minWidth: 100 }}
+                      size="small"
+                    >
+                      <InputLabel id="quantity-label">Quantity</InputLabel>
+                      <Select
+                        value={quantity}
+                        labelId="quantity-label"
+                        id="quantity"
+                        label="quantity"
+                        onChange={(e) => setQuantity(e.target.value)}
+                        required
+                      >
+                        {Array.from({ length: 10 }, (_, i) => i + 1).map(
+                          (number, index) => (
+                            <MenuItem key={index} value={number}>
+                              {number}
+                            </MenuItem>
+                          )
+                        )}
+                      </Select>
+                    </FormControl>
                   </CardActions>
-                  {/* Add to Cart */}
+                  {/* Add to cart */}
                   <CardActions
                     sx={{ justifyContent: "flex-end", paddingRight: 0 }}
                   >
@@ -293,7 +317,7 @@ const ProductDetails = () => {
                       Add to Cart
                     </Button>
                   </CardActions>
-                  {/* Product Specs for 600px to 900px  */}
+                  {/* Product specs for 600px to 900px  */}
                   <Box
                     sx={{
                       display: { xs: "none", sm: "flex", md: "none" },
@@ -422,7 +446,7 @@ const ProductDetails = () => {
                       </Paper>
                     </Tooltip>
                   </Box>
-                  {/* Product Description for bigger than Mobile Screens */}
+                  {/* Product description for bigger than mobile screens */}
                   <Box display={{ xs: "none", md: "block" }} marginTop="2em">
                     <Typography variant="body1" component="p">
                       {product.description}
@@ -430,7 +454,7 @@ const ProductDetails = () => {
                   </Box>
                 </Box>
               </Grid>
-              {/* Product Description for Mobile Screens */}
+              {/* Product description for mobile screens */}
               <Grid
                 item
                 xs={12}

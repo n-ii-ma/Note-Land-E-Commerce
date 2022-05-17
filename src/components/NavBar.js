@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -51,6 +51,9 @@ const NavBar = () => {
   // Scroll to hide App bar
   const trigger = useScrollTrigger();
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   // Set position of the menu to the current target of the event
   const handleMenu = (e) => {
     setAnchorEl(e.currentTarget);
@@ -63,9 +66,13 @@ const NavBar = () => {
 
   // Navigate to page section
   const onNavClick = (e, id) => {
-    let element = document.getElementById(id);
-    e.preventDefault();
-    element.scrollIntoView();
+    if (location.pathname === "/") {
+      let element = document.getElementById(id);
+      e.preventDefault();
+      element.scrollIntoView();
+    } else {
+      navigate("/");
+    }
   };
 
   return (
