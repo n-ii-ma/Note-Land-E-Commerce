@@ -1,4 +1,6 @@
-import { Link as RouterLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,7 +12,42 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
+import {
+  registerUser,
+  selectRegisteredState,
+  selectLoadingUsers,
+} from "../features/users/usersSlice";
+import LoadingBackdrop from "./LoadingBackdrop";
+
 const Register = () => {
+  // Field states
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // Users state
+  const registeredState = useSelector(selectRegisteredState);
+  const loadingUsers = useSelector(selectLoadingUsers);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Navigate to the login page if user registers successfully
+  useEffect(() => {
+    if (registeredState) {
+      navigate("/auth/login", { replace: true });
+    }
+  }, [navigate, registeredState]);
+
+  // On submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!first_name || !last_name || !email || !password) return;
+
+    dispatch(registerUser({ first_name, last_name, email, password }));
+  };
+
   return (
     <Container
       component="main"
@@ -18,6 +55,7 @@ const Register = () => {
       sx={{ marginTop: { xs: "6em", sm: "7em" } }}
     >
       <CssBaseline />
+      {loadingUsers ? <LoadingBackdrop /> : ""}
       <Box
         sx={{
           marginTop: 8,
@@ -32,10 +70,12 @@ const Register = () => {
         <Typography component="h1" variant="h5">
           Register
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
+                value={first_name}
+                onChange={(e) => setFirstName(e.target.value)}
                 autoComplete="given-name"
                 name="firstName"
                 required
@@ -47,6 +87,8 @@ const Register = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                value={last_name}
+                onChange={(e) => setLastName(e.target.value)}
                 required
                 fullWidth
                 id="lastName"
@@ -57,6 +99,8 @@ const Register = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 fullWidth
                 id="email"
@@ -67,6 +111,8 @@ const Register = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
                 fullWidth
                 name="password"

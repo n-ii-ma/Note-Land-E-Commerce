@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import axiosApi from "../../config/axiosConfig";
+import { axiosApiPublic } from "../../config/axiosConfig";
 
 // Get all the products from the API
 export const getProducts = createAsyncThunk(
   "products/getProducts",
   async (arg, { rejectWithValue }) => {
     try {
-      const response = await axiosApi.get("/products");
+      const response = await axiosApiPublic.get("/products");
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -20,7 +20,7 @@ export const getProduct = createAsyncThunk(
   "products/getProduct",
   async (productId, { rejectWithValue }) => {
     try {
-      const response = await axiosApi.get(`/products/${productId}`);
+      const response = await axiosApiPublic.get(`/products/${productId}`);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -34,7 +34,7 @@ const productsSlice = createSlice({
     allProducts: [],
     allAreLoading: false,
     allHaveError: false,
-    oneProduct: [],
+    oneProduct: {},
     oneIsLoading: false,
     oneHasError: false,
     errorMessage: {},
@@ -49,7 +49,7 @@ const productsSlice = createSlice({
         state.allProducts = action.payload;
         state.allAreLoading = false;
         state.allHaveError = false;
-        state.oneProduct = [];
+        state.oneProduct = {};
       })
       .addCase(getProducts.rejected, (state, action) => {
         state.allAreLoading = false;

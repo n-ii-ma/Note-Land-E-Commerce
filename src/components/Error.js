@@ -8,6 +8,10 @@ import {
   selectOneErrorProduct,
   selectErrorMessageProduct,
 } from "../features/products/productsSlice";
+import {
+  selectErrorUsers,
+  selectErrorMessageUsers,
+} from "../features/users/usersSlice";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -16,17 +20,42 @@ const Alert = forwardRef(function Alert(props, ref) {
 const Error = () => {
   // Snackbar state
   const [open, setOpen] = useState(false);
+  // Error message state
+  const [errorMessage, setErrorMessage] = useState("");
 
+  // Products
   const errorProducts = useSelector(selectAllErrorProducts);
-  const errorProduct = useSelector(selectOneErrorProduct);
-  const errorMessage = useSelector(selectErrorMessageProduct);
 
-  // Show snackbar if all or one product throws an error
+  // Product
+  const errorProduct = useSelector(selectOneErrorProduct);
+  const productErrorMessage = useSelector(selectErrorMessageProduct);
+
+  // Users
+  const errorUsers = useSelector(selectErrorUsers);
+  const usersErrorMessage = useSelector(selectErrorMessageUsers);
+
+  // Change error message state based on the api error messages
   useEffect(() => {
-    if (errorProducts || errorProduct) {
+    if (
+      productErrorMessage &&
+      typeof productErrorMessage.error !== "undefined"
+    ) {
+      setErrorMessage(productErrorMessage.error.message);
+    } else if (usersErrorMessage) {
+      setErrorMessage(
+        usersErrorMessage.error
+          ? usersErrorMessage.error.message
+          : usersErrorMessage.message
+      );
+    }
+  }, [productErrorMessage, usersErrorMessage]);
+
+  // Show snackbar if all or one components throws an error
+  useEffect(() => {
+    if (errorProducts || errorProduct || errorUsers) {
       setOpen(true);
     }
-  }, [errorProducts, errorProduct]);
+  }, [errorProducts, errorProduct, errorUsers]);
 
   return (
     <Snackbar
@@ -34,9 +63,7 @@ const Error = () => {
       anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
     >
       <Alert severity="error" sx={{ alignItems: "center" }}>
-        {errorMessage && typeof errorMessage.error !== "undefined"
-          ? errorMessage.error.message
-          : "Failed to Load the Resources"}
+        {errorMessage ? errorMessage : "Failed to Load the Resources"}
       </Alert>
     </Snackbar>
   );

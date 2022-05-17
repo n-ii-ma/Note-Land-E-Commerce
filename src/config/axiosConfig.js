@@ -1,7 +1,11 @@
 import axios from "axios";
 
-const axiosApi = axios.create({
+export const axiosApiPrivate = axios.create({
   baseURL: "https://e-commerce-pern.herokuapp.com/api/v1",
+  withCredentials: true,
 });
 
-export default axiosApi;
+export const axiosApiPublic = axios.create({
+  baseURL: "https://e-commerce-pern.herokuapp.com/api/v1",
+  withCredentials: false,
+});

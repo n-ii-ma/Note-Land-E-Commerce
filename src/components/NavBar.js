@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -24,6 +25,11 @@ import Slide from "@mui/material/Slide";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import { styled } from "@mui/material";
 
+import {
+  logoutUser,
+  selectLoggedInState,
+} from "../features/users/usersSlice";
+
 const NavButtons = styled("div")(({ theme }) => ({
   width: "400px",
   display: "flex",
@@ -38,7 +44,6 @@ const NavBar = () => {
   // Hamburger button state
   const [open, setOpen] = useState(false);
   // Authentication state
-  // eslint-disable-next-line
   const [authenticated, setAuthenticated] = useState(false);
   // Badge visibility state
   // eslint-disable-next-line
@@ -51,8 +56,24 @@ const NavBar = () => {
   // Scroll to hide App bar
   const trigger = useScrollTrigger();
 
+  const loggedInState = useSelector(selectLoggedInState);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) setAuthenticated(true);
+    setAnchorEl(null);
+  }, [loggedInState]);
+
+  // Log out user
+  const handleLogOut = () => {
+    dispatch(logoutUser());
+    localStorage.clear();
+    setAuthenticated(false);
+  };
 
   // Set position of the menu to the current target of the event
   const handleMenu = (e) => {
@@ -173,7 +194,7 @@ const NavBar = () => {
                   >
                     <MenuItem>Dashboard</MenuItem>
                     <MenuItem>Account Settings</MenuItem>
-                    <MenuItem>Logout</MenuItem>
+                    <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                   </Menu>
                 </div>
               ) : (

@@ -9,6 +9,7 @@ import ProductDetails from "../components/ProductDetails";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import Footer from "../components/Footer";
+import Success from "../components/Success";
 import Error from "../components/Error";
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
       <div>
         <Footer />
       </div>
+      <Success />
       <Error />
     </div>
   );
