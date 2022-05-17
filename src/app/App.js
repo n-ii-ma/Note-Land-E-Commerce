@@ -9,7 +9,7 @@ import ProductDetails from "../components/ProductDetails";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import Footer from "../components/Footer";
-import ProductsError from "../components/ProductsError";
+import Error from "../components/Error";
 
 function App() {
   // Scroll to top on every transition custom hook
@@ -44,7 +44,7 @@ function App() {
       <div>
         <Footer />
       </div>
-      <ProductsError />
+      <Error />
     </div>
   );
 }

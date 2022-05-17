@@ -130,18 +130,20 @@ const NavBar = () => {
               >
                 Shop
               </Button>
-              <Button
-                startIcon={<ShoppingCartIcon />}
-                sx={{
-                  color: "black",
-                  fontFamily: "Montserrat",
-                  fontWeight: "bold",
-                  fontSize: { sm: "1rem" },
-                  display: { xs: "none", sm: "flex" },
-                }}
-              >
-                Cart
-              </Button>
+              <Badge color="error" badgeContent={badgeNumber}>
+                <Button
+                  startIcon={<ShoppingCartIcon />}
+                  sx={{
+                    color: "black",
+                    fontFamily: "Montserrat",
+                    fontWeight: "bold",
+                    fontSize: { sm: "1rem" },
+                    display: { xs: "none", sm: "flex" },
+                  }}
+                >
+                  Cart
+                </Button>
+              </Badge>
               {authenticated ? (
                 <div>
                   <IconButton
