@@ -1,4 +1,4 @@
-import { useState, useEffect, forwardRef } from "react";
+import { useState, useEffect, forwardRef, useRef } from "react";
 import { useSelector } from "react-redux";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
@@ -20,6 +20,9 @@ const Alert = forwardRef(function Alert(props, ref) {
 const Error = () => {
   // Snackbar state
   const [open, setOpen] = useState(false);
+
+  // Track whether the component has mounted or not
+  const isMounted = useRef(false);
 
   // Error message state
   const [errorMessage, setErrorMessage] = useState("");
@@ -53,14 +56,29 @@ const Error = () => {
 
   // Show snackbar if all or one components throws an error
   useEffect(() => {
-    if (errorProducts || errorProduct || errorUsers) {
+    if (errorProducts || errorProduct) {
       setOpen(true);
     }
-  }, [errorProducts, errorProduct, errorUsers]);
+  }, [errorProducts, errorProduct]);
+
+  // Show snackbar users component throws an error
+  // isMounted.current starts off as false so the first runthrough of the useEffect hook won’t call setOpen(true)
+  // Instead, it will set isMounted.current to true
+  // On subsequent runs of the hook, isMounted.current will be true and setOpen(true) will be executed
+  useEffect(() => {
+    if (isMounted.current) {
+      if (errorUsers) {
+        setOpen(true);
+      }
+    } else {
+      setTimeout(() => (isMounted.current = true), 1000);
+    }
+  }, [errorUsers]);
 
   return (
     <Snackbar
       open={open}
+      onClose={() => setOpen(false)}
       anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
     >
       <Alert severity="error" sx={{ alignItems: "center" }}>
