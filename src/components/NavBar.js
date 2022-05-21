@@ -25,10 +25,8 @@ import Slide from "@mui/material/Slide";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import { styled } from "@mui/material";
 
-import {
-  logoutUser,
-  selectLoggedInState,
-} from "../features/users/usersSlice";
+import { logoutUser, selectLoggedInState } from "../features/users/usersSlice";
+import { persistor } from "../index";
 
 const NavButtons = styled("div")(({ theme }) => ({
   width: "400px",
@@ -43,36 +41,43 @@ const NavButtons = styled("div")(({ theme }) => ({
 const NavBar = () => {
   // Hamburger button state
   const [open, setOpen] = useState(false);
+
   // Authentication state
   const [authenticated, setAuthenticated] = useState(false);
+
   // Badge visibility state
   // eslint-disable-next-line
   const [invisible, setInvisible] = useState(true);
+
   // Badge number state
   // eslint-disable-next-line
   const [badgeNumber, setBadgeNumber] = useState(0);
+
   // Position of authentication menu state
   const [anchorEl, setAnchorEl] = useState(null);
+
   // Scroll to hide App bar
   const trigger = useScrollTrigger();
 
+  // Users state
   const loggedInState = useSelector(selectLoggedInState);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Show account icon when user gets logged in
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
-    if (loggedInUser) setAuthenticated(true);
+    if (loggedInState) setAuthenticated(true);
     setAnchorEl(null);
   }, [loggedInState]);
 
   // Log out user
   const handleLogOut = () => {
     dispatch(logoutUser());
-    localStorage.clear();
     setAuthenticated(false);
+    // Purge redux-persist state 1 second after logout
+    setTimeout(() => persistor.purge(), 1000);
   };
 
   // Set position of the menu to the current target of the event

@@ -28,20 +28,23 @@ export const getProduct = createAsyncThunk(
   }
 );
 
+// Initial state
+const initialState = {
+  allProducts: [],
+  allAreLoading: false,
+  allHaveError: false,
+  oneProduct: {},
+  oneIsLoading: false,
+  oneHasError: false,
+  errorMessage: {},
+};
+
 const productsSlice = createSlice({
   name: "products",
-  initialState: {
-    allProducts: [],
-    allAreLoading: false,
-    allHaveError: false,
-    oneProduct: {},
-    oneIsLoading: false,
-    oneHasError: false,
-    errorMessage: {},
-  },
+  initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(getProducts.pending, (state, action) => {
+      .addCase(getProducts.pending, (state) => {
         state.allAreLoading = true;
         state.allHaveError = false;
       })
@@ -56,7 +59,7 @@ const productsSlice = createSlice({
         state.allHaveError = true;
         state.errorMessage = action.payload;
       })
-      .addCase(getProduct.pending, (state, action) => {
+      .addCase(getProduct.pending, (state) => {
         state.oneIsLoading = true;
         state.oneHasError = false;
       })

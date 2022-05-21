@@ -20,17 +20,18 @@ const Alert = forwardRef(function Alert(props, ref) {
 const Error = () => {
   // Snackbar state
   const [open, setOpen] = useState(false);
+
   // Error message state
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Products
+  // Products state
   const errorProducts = useSelector(selectAllErrorProducts);
 
-  // Product
+  // Product state
   const errorProduct = useSelector(selectOneErrorProduct);
   const productErrorMessage = useSelector(selectErrorMessageProduct);
 
-  // Users
+  // Users state
   const errorUsers = useSelector(selectErrorUsers);
   const usersErrorMessage = useSelector(selectErrorMessageUsers);
 

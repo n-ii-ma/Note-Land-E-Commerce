@@ -33,12 +33,15 @@ import ProductDetailsSkeleton from "../components/ProductDetailsSkeleton";
 const ProductDetails = () => {
   // Color selection state
   const [colorSelect, setColorSelect] = useState("");
+
   // Quantity selection state
   const [quantity, setQuantity] = useState(1);
 
+  // Product state
   const product = useSelector(selectOneProduct);
   const loadingProduct = useSelector(selectOneLoadingProduct);
   const errorProduct = useSelector(selectOneErrorProduct);
+
   const dispatch = useDispatch();
 
   // Get the product id from the url parameter

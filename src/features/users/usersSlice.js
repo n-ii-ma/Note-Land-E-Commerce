@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { PURGE } from "redux-persist";
 
 import { axiosApiPrivate } from "../../config/axiosConfig";
 
@@ -29,7 +30,6 @@ export const loginUser = createAsyncThunk(
         email,
         password,
       });
-      localStorage.setItem("user", response.data.user.user_id);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -50,20 +50,23 @@ export const logoutUser = createAsyncThunk(
   }
 );
 
+// Initial state
+const initialState = {
+  user: {},
+  isRegistered: false,
+  isLoggedIn: false,
+  isLoggedOut: false,
+  isLoading: false,
+  hasError: false,
+  errorMessage: {},
+};
+
 const usersSlice = createSlice({
   name: "users",
-  initialState: {
-    user: {},
-    isRegistered: false,
-    isLoggedIn: false,
-    isLoggedOut: false,
-    isLoading: false,
-    hasError: false,
-    errorMessage: {},
-  },
+  initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(registerUser.pending, (state, action) => {
+      .addCase(registerUser.pending, (state) => {
         state.isLoading = true;
         state.hasError = false;
       })
@@ -80,7 +83,7 @@ const usersSlice = createSlice({
         state.hasError = true;
         state.errorMessage = action.payload;
       })
-      .addCase(loginUser.pending, (state, action) => {
+      .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
         state.hasError = false;
       })
@@ -97,7 +100,7 @@ const usersSlice = createSlice({
         state.hasError = true;
         state.errorMessage = action.payload;
       })
-      .addCase(logoutUser.pending, (state, action) => {
+      .addCase(logoutUser.pending, (state) => {
         state.isLoading = true;
         state.hasError = false;
       })
@@ -113,7 +116,9 @@ const usersSlice = createSlice({
         state.isLoading = false;
         state.hasError = true;
         state.errorMessage = action.payload;
-      });
+      })
+      // Purge redux-persist state after logout
+      .addCase(PURGE, () => initialState);
   },
 });
 

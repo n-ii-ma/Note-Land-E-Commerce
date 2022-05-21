@@ -15,9 +15,11 @@ import {
 } from "../features/products/productsSlice";
 
 const ProductsList = () => {
+  // Products state
   const allProducts = useSelector(selectAllProducts);
   const loadingProducts = useSelector(selectAllLoadingProducts);
   const errorProducts = useSelector(selectAllErrorProducts);
+
   const dispatch = useDispatch();
 
   // Fetch products from the api on initial page load

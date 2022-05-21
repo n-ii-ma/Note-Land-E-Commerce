@@ -1,4 +1,4 @@
-import { useState, useEffect, forwardRef } from "react";
+import { useState, useEffect, forwardRef, useRef } from "react";
 import { useSelector } from "react-redux";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
@@ -17,9 +17,14 @@ const Alert = forwardRef(function Alert(props, ref) {
 const Success = () => {
   // Snackbar state
   const [open, setOpen] = useState(false);
+
   // Success message state
   const [successMessage, setSuccessMessage] = useState("");
 
+  // Track whether the component has mounted or not
+  const isMounted = useRef(false);
+
+  // Users state
   const user = useSelector(selectUser);
   const registeredState = useSelector(selectRegisteredState);
   const loggedInState = useSelector(selectLoggedInState);
@@ -33,9 +38,16 @@ const Success = () => {
   }, [user]);
 
   // Show snackbar if all or one components succeeds
+  // isMounted.current starts off as false so the first runthrough of the useEffect hook won’t call setOpen(true)
+  // Instead, it will set isMounted.current to true
+  // On subsequent runs of the hook, isMounted.current will be true and setOpen(true) will be executed
   useEffect(() => {
-    if (registeredState || loggedInState || loggedOutState) {
-      setOpen(true);
+    if (isMounted.current) {
+      if (registeredState || loggedInState || loggedOutState) {
+        setOpen(true);
+      }
+    } else {
+      setTimeout(() => (isMounted.current = true), 1000);
     }
   }, [registeredState, loggedInState, loggedOutState]);
 
