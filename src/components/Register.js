@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -18,13 +20,17 @@ import {
   selectLoadingUsers,
 } from "../features/users/usersSlice";
 import LoadingBackdrop from "./LoadingBackdrop";
+import schema from "../config/validationSchema";
 
 const Register = () => {
-  // Field states
-  const [first_name, setFirstName] = useState("");
-  const [last_name, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // useForm hook
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   // Users state
   const registeredState = useSelector(selectRegisteredState);
@@ -41,10 +47,7 @@ const Register = () => {
   }, [navigate, registeredState]);
 
   // On submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!first_name || !last_name || !email || !password) return;
-
+  const onSubmit = ({ first_name, last_name, email, password }) => {
     dispatch(registerUser({ first_name, last_name, email, password }));
   };
 
@@ -70,37 +73,45 @@ const Register = () => {
         <Typography component="h1" variant="h5">
           Register
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box
+          component="form"
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ mt: 3 }}
+        >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                value={first_name}
-                onChange={(e) => setFirstName(e.target.value)}
+                {...register("first_name")}
+                error={errors.first_name && true}
+                helperText={errors.first_name?.message}
                 autoComplete="given-name"
-                name="firstName"
+                name="first_name"
                 required
                 fullWidth
-                id="firstName"
+                id="first_name"
                 label="First Name"
                 autoFocus
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                value={last_name}
-                onChange={(e) => setLastName(e.target.value)}
+                {...register("last_name")}
+                error={errors.last_name && true}
+                helperText={errors.last_name?.message}
                 required
                 fullWidth
-                id="lastName"
+                id="last_name"
                 label="Last Name"
-                name="lastName"
+                name="last_name"
                 autoComplete="family-name"
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register("email")}
+                error={errors.email && true}
+                helperText={errors.email?.message}
                 required
                 fullWidth
                 id="email"
@@ -111,8 +122,9 @@ const Register = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                {...register("password")}
+                error={errors.password && true}
+                helperText={errors.password?.message}
                 required
                 fullWidth
                 name="password"

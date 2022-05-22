@@ -213,6 +213,7 @@ const ProductDetailsSkeleton = () => {
                   sx={{ justifyContent: "flex-end", paddingRight: 0 }}
                 >
                   <Button
+                    disabled
                     size="medium"
                     variant="contained"
                     color="success"

@@ -37,6 +37,9 @@ const ProductDetails = () => {
   // Quantity selection state
   const [quantity, setQuantity] = useState(1);
 
+  // Add to cart button state
+  const [disabled, setDisabled] = useState(true);
+
   // Product state
   const product = useSelector(selectOneProduct);
   const loadingProduct = useSelector(selectOneLoadingProduct);
@@ -51,6 +54,11 @@ const ProductDetails = () => {
   useEffect(() => {
     dispatch(getProduct(product_id));
   }, [dispatch, product_id]);
+
+  // Enable add to cart button when color is selected
+  useEffect(() => {
+    if (colorSelect) setDisabled(false);
+  }, [colorSelect]);
 
   // Show skeleton if the product is loading or has error
   if (loadingProduct || errorProduct) return <ProductDetailsSkeleton />;
@@ -308,6 +316,7 @@ const ProductDetails = () => {
                     sx={{ justifyContent: "flex-end", paddingRight: 0 }}
                   >
                     <Button
+                      disabled={disabled}
                       size="medium"
                       variant="contained"
                       color="success"
