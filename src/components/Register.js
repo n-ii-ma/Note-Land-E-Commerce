@@ -18,6 +18,7 @@ import {
   registerUser,
   selectRegisteredState,
   selectLoadingUsers,
+  clearRegistered,
 } from "../features/users/usersSlice";
 import LoadingBackdrop from "./LoadingBackdrop";
 import schema from "../config/validationSchema";
@@ -43,8 +44,11 @@ const Register = () => {
   useEffect(() => {
     if (registeredState) {
       navigate("/auth/login", { replace: true });
+
+      // Clear register state so that a not signed in user can navigate to the register page
+      dispatch(clearRegistered());
     }
-  }, [navigate, registeredState]);
+  }, [navigate, dispatch, registeredState]);
 
   // On submit
   const onSubmit = ({ first_name, last_name, email, password }) => {

@@ -64,6 +64,11 @@ const initialState = {
 const usersSlice = createSlice({
   name: "users",
   initialState,
+  reducers: {
+    clearRegistered: (state) => {
+      state.isRegistered = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -130,6 +135,9 @@ export const selectLoggedOutState = (state) => state.users.isLoggedOut;
 export const selectLoadingUsers = (state) => state.users.isLoading;
 export const selectErrorUsers = (state) => state.users.hasError;
 export const selectErrorMessageUsers = (state) => state.users.errorMessage;
+
+// Action
+export const { clearRegistered } = usersSlice.actions;
 
 // Reducer
 export default usersSlice.reducer;
