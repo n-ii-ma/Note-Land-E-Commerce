@@ -8,6 +8,7 @@ import ProductsList from "../components/ProductsList";
 import ProductDetails from "../components/ProductDetails";
 import Login from "../components/Login";
 import Register from "../components/Register";
+import Dashboard from "../components/Dashboard";
 import Footer from "../components/Footer";
 import Success from "../components/Success";
 import Error from "../components/Error";
@@ -40,6 +41,7 @@ function App() {
           <Route path="/product/:product_id" element={<ProductDetails />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/register" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
       <div>

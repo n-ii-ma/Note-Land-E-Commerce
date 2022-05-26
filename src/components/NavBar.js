@@ -74,6 +74,9 @@ const NavBar = () => {
 
   // Log out user
   const handleLogOut = () => {
+    if (location.pathname === "/dashboard") {
+      navigate("/");
+    }
     dispatch(logoutUser());
     setAuthenticated(false);
     // Purge redux-persist state 1 second after logout
@@ -197,8 +200,9 @@ const NavBar = () => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    <MenuItem>Dashboard</MenuItem>
-                    <MenuItem>Account Settings</MenuItem>
+                    <MenuItem component={Link} to="/dashboard">
+                      Dashboard
+                    </MenuItem>
                     <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                   </Menu>
                 </div>

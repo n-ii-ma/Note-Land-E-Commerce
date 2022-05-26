@@ -21,7 +21,7 @@ import {
   clearRegistered,
 } from "../features/users/usersSlice";
 import LoadingBackdrop from "./LoadingBackdrop";
-import schema from "../config/validationSchema";
+import { registrationSchema } from "../config/validationSchema";
 
 const Register = () => {
   // useForm hook
@@ -30,7 +30,7 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(registrationSchema),
   });
 
   // Users state

@@ -4,9 +4,11 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
 import {
-  selectUser,
+  selectUserMessage,
+  selectUpdateMessage,
   selectRegisteredState,
   selectLoggedInState,
+  selectUpdateState,
   selectLoggedOutState,
 } from "../features/users/usersSlice";
 
@@ -25,17 +27,23 @@ const Success = () => {
   const isMounted = useRef(false);
 
   // Users state
-  const user = useSelector(selectUser);
+  const userMessage = useSelector(selectUserMessage);
+  const updateMessage = useSelector(selectUpdateMessage);
   const registeredState = useSelector(selectRegisteredState);
   const loggedInState = useSelector(selectLoggedInState);
   const loggedOutState = useSelector(selectLoggedOutState);
+  const updateState = useSelector(selectUpdateState);
 
   // Change success message state based on the api success messages
   useEffect(() => {
-    if (user?.message) {
-      setSuccessMessage(user.message);
+    if (userMessage?.message) {
+      setSuccessMessage(userMessage.message);
     }
-  }, [user]);
+
+    if (updateMessage?.message) {
+      setSuccessMessage(updateMessage.message);
+    }
+  }, [userMessage, updateMessage]);
 
   // Show snackbar if all or one components succeeds
   // isMounted.current starts off as false so the first runthrough of the useEffect hook won’t call setOpen(true)
@@ -43,13 +51,13 @@ const Success = () => {
   // On subsequent runs of the hook, isMounted.current will be true and setOpen(true) will be executed
   useEffect(() => {
     if (isMounted.current) {
-      if (registeredState || loggedInState || loggedOutState) {
+      if (registeredState || loggedInState || loggedOutState || updateState) {
         setOpen(true);
       }
     } else {
       setTimeout(() => (isMounted.current = true), 1000);
     }
-  }, [registeredState, loggedInState, loggedOutState]);
+  }, [registeredState, loggedInState, loggedOutState, updateState]);
 
   return (
     <Snackbar
