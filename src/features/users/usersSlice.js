@@ -112,6 +112,19 @@ export const updateUserAddress = createAsyncThunk(
   }
 );
 
+// Delete user
+export const deleteUser = createAsyncThunk(
+  "user/deleteUser",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axiosApiPrivate.delete(`/users/${id}`);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 // Initial state
 const initialState = {
   user: {},
@@ -252,6 +265,27 @@ const usersSlice = createSlice({
         state.hasError = false;
       })
       .addCase(updateUserAddress.rejected, (state, action) => {
+        state.isLoading = false;
+        state.hasError = true;
+        state.errorMessage = action.payload;
+      })
+      .addCase(deleteUser.pending, (state) => {
+        state.isLoading = true;
+        state.hasError = false;
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.userMessage = action.payload;
+        state.user = {};
+        state.oneUser = {};
+        state.updateMessage = {};
+        state.isRegistered = false;
+        state.isLoggedIn = false;
+        state.isLoggedOut = true;
+        state.isLoading = false;
+        state.isUpdated = false;
+        state.hasError = false;
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
         state.isLoading = false;
         state.hasError = true;
         state.errorMessage = action.payload;

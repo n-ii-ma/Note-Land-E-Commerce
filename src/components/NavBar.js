@@ -68,17 +68,24 @@ const NavBar = () => {
 
   // Show account icon when user gets logged in
   useEffect(() => {
-    if (loggedInState) setAuthenticated(true);
-    setAnchorEl(null);
+    if (loggedInState) {
+      setAuthenticated(true);
+      setAnchorEl(null);
+    } else {
+      setAuthenticated(false);
+    }
   }, [loggedInState]);
 
   // Log out user
   const handleLogOut = () => {
+    // Navigate to the home page
     if (location.pathname === "/dashboard") {
       navigate("/");
     }
+
+    // Logout user
     dispatch(logoutUser());
-    setAuthenticated(false);
+
     // Purge redux-persist state 1 second after logout
     setTimeout(() => persistor.purge(), 1000);
   };
@@ -200,7 +207,11 @@ const NavBar = () => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    <MenuItem component={Link} to="/dashboard">
+                    <MenuItem
+                      component={Link}
+                      to="/dashboard"
+                      onClick={handleClose}
+                    >
                       Dashboard
                     </MenuItem>
                     <MenuItem onClick={handleLogOut}>Logout</MenuItem>

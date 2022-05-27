@@ -6,10 +6,16 @@ import Card from "@mui/material/Card";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
-import { getUser } from "../features/users/usersSlice";
-import { selectUser } from "../features/users/usersSlice";
+import {
+  getUser,
+  selectUser,
+  selectLoadingUsers,
+  selectErrorUsers,
+} from "../features/users/usersSlice";
+import Profile from "./Profile";
 import PrivateInfo from "./PrivateInfo";
 import Address from "./Address";
+import Spinner from "./Spinner";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -33,6 +39,8 @@ const Dashboard = () => {
 
   // Users state
   const user = useSelector(selectUser);
+  const loadingUsers = useSelector(selectLoadingUsers);
+  const errorUsers = useSelector(selectErrorUsers);
 
   const dispatch = useDispatch();
 
@@ -53,7 +61,7 @@ const Dashboard = () => {
           raised
           sx={{
             margin: "0 auto",
-            padding: "1em",
+            padding: "0.75em",
             backgroundColor: "#DACDCA",
           }}
         >
@@ -65,19 +73,23 @@ const Dashboard = () => {
                 variant="scrollable"
                 aria-label="dashboard tabs"
               >
-                <Tab label="Order History" />
+                <Tab label="Profile" />
+                <Tab label="Orders" />
                 <Tab label="Edit Info" />
                 <Tab label="Edit Address" />
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-              Item One
+              {loadingUsers || errorUsers ? <Spinner /> : <Profile />}
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <PrivateInfo />
+              Item Two
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <Address />
+              {loadingUsers || errorUsers ? <Spinner /> : <PrivateInfo />}
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              {loadingUsers || errorUsers ? <Spinner /> : <Address />}
             </TabPanel>
           </Box>
         </Card>
