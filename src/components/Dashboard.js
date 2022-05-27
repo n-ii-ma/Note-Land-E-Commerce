@@ -83,7 +83,7 @@ const Dashboard = () => {
               {loadingUsers || errorUsers ? <Spinner /> : <Profile />}
             </TabPanel>
             <TabPanel value={value} index={1}>
-              Item Two
+              Nothing to Show
             </TabPanel>
             <TabPanel value={value} index={2}>
               {loadingUsers || errorUsers ? <Spinner /> : <PrivateInfo />}
