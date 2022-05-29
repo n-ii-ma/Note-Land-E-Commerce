@@ -15,7 +15,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import Button from "@mui/material/Button";
+import LoadingButton from "@mui/lab/LoadingButton";
 import Tooltip from "@mui/material/Tooltip";
 import CropFreeIcon from "@mui/icons-material/CropFree";
 import MemoryIcon from "@mui/icons-material/Memory";
@@ -28,6 +28,11 @@ import {
   selectOneErrorProduct,
   getProduct,
 } from "../features/products/productsSlice";
+import { selectUser } from "../features/users/usersSlice";
+import {
+  addProductToCart,
+  selectLoadingCart,
+} from "../features/cart/cartSlice";
 import ProductDetailsSkeleton from "../components/ProductDetailsSkeleton";
 
 const ProductDetails = () => {
@@ -45,6 +50,12 @@ const ProductDetails = () => {
   const loadingProduct = useSelector(selectOneLoadingProduct);
   const errorProduct = useSelector(selectOneErrorProduct);
 
+  // Users state
+  const user = useSelector(selectUser);
+
+  // Cart state
+  const loadingCart = useSelector(selectLoadingCart);
+
   const dispatch = useDispatch();
 
   // Get the product id from the url parameter
@@ -59,6 +70,18 @@ const ProductDetails = () => {
   useEffect(() => {
     if (colorSelect) setDisabled(false);
   }, [colorSelect]);
+
+  // Add product to cart
+  const handleAddToCart = () => {
+    dispatch(
+      addProductToCart({
+        product_id: product_id,
+        quantity: quantity,
+        color: colorSelect,
+        id: user?.user && user?.user.cart_id,
+      })
+    );
+  };
 
   // Show skeleton if the product is loading or has error
   if (loadingProduct || errorProduct) return <ProductDetailsSkeleton />;
@@ -315,8 +338,10 @@ const ProductDetails = () => {
                   <CardActions
                     sx={{ justifyContent: "flex-end", paddingRight: 0 }}
                   >
-                    <Button
+                    <LoadingButton
                       disabled={disabled}
+                      loading={loadingCart}
+                      onClick={handleAddToCart}
                       size="medium"
                       variant="contained"
                       color="success"
@@ -327,7 +352,7 @@ const ProductDetails = () => {
                       }}
                     >
                       Add to Cart
-                    </Button>
+                    </LoadingButton>
                   </CardActions>
                   {/* Product specs for 600px to 900px  */}
                   <Box

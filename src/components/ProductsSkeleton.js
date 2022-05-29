@@ -1,8 +1,6 @@
 import Skeleton from "@mui/material/Skeleton";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -48,7 +46,7 @@ const ProductsSkeleton = () => {
                     padding: "0.1em",
                   }}
                 >
-                  <Skeleton variant="rectangular" height={280} width={280} />
+                  <Skeleton variant="rectangular" height={272} width={280} />
                   <CardContent>
                     <Typography
                       variant="h5"
@@ -91,24 +89,6 @@ const ProductsSkeleton = () => {
                       <Skeleton variant="text" width="25%" />
                     </Typography>
                   </CardContent>
-                  <CardActions sx={{ justifyContent: "flex-end" }}>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      color="info"
-                      sx={{ fontFamily: "Roboto Flex", fontWeight: "400" }}
-                    >
-                      Details
-                    </Button>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      color="success"
-                      sx={{ fontFamily: "Roboto Flex", fontWeight: "400" }}
-                    >
-                      Add to Cart
-                    </Button>
-                  </CardActions>
                 </Card>
               </Grid>
             ))}

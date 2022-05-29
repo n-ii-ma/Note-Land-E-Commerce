@@ -11,6 +11,7 @@ import {
   selectUpdateState,
   selectLoggedOutState,
 } from "../features/users/usersSlice";
+import { selectCartMessage } from "../features/cart/cartSlice";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -34,16 +35,29 @@ const Success = () => {
   const loggedOutState = useSelector(selectLoggedOutState);
   const updateState = useSelector(selectUpdateState);
 
-  // Change success message state based on the api success messages
+  // Cart state
+  const cartMessage = useSelector(selectCartMessage);
+
+  // User success message
   useEffect(() => {
     if (userMessage?.message) {
       setSuccessMessage(userMessage.message);
     }
+  }, [userMessage]);
 
+  // User update success message
+  useEffect(() => {
     if (updateMessage?.message) {
       setSuccessMessage(updateMessage.message);
     }
-  }, [userMessage, updateMessage]);
+  }, [updateMessage]);
+
+  // Add to cart success message
+  useEffect(() => {
+    if (cartMessage?.message) {
+      setSuccessMessage(cartMessage.message);
+    }
+  }, [cartMessage]);
 
   // Show snackbar if all or one components succeeds
   // isMounted.current starts off as false so the first runthrough of the useEffect hook won’t call setOpen(true)
@@ -51,13 +65,25 @@ const Success = () => {
   // On subsequent runs of the hook, isMounted.current will be true and setOpen(true) will be executed
   useEffect(() => {
     if (isMounted.current) {
-      if (registeredState || loggedInState || loggedOutState || updateState) {
+      if (
+        registeredState ||
+        loggedInState ||
+        loggedOutState ||
+        updateState ||
+        cartMessage?.message
+      ) {
         setOpen(true);
       }
     } else {
       setTimeout(() => (isMounted.current = true), 1000);
     }
-  }, [registeredState, loggedInState, loggedOutState, updateState]);
+  }, [
+    registeredState,
+    loggedInState,
+    loggedOutState,
+    updateState,
+    cartMessage,
+  ]);
 
   return (
     <Snackbar

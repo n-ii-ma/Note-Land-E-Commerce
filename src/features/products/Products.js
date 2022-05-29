@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
+import { CardActionArea } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 
@@ -17,68 +16,46 @@ const Products = ({ product }) => {
         padding: "0.1em",
       }}
     >
-      <CardMedia
-        component="img"
-        height="280"
-        image={product.img_urls[0]}
-        alt={product.name}
-        title={product.name}
-        sx={{ padding: "0.5em 0.5em 0 0.5em" }}
-      />
-      <CardContent>
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="h5"
-          sx={{
-            fontFamily: "Montserrat",
-            fontSize: { xs: "1.4rem", md: "1.5rem" },
-          }}
-        >
-          {product.name}
-        </Typography>
-        <Rating
-          name="read-only-rating"
-          defaultValue={5}
-          readOnly
-          sx={{ marginBottom: "0.5em" }}
+      <CardActionArea component={Link} to={`/product/${product.product_id}`}>
+        <CardMedia
+          component="img"
+          height="280"
+          image={product.img_urls[0]}
+          alt={product.name}
+          title={product.name}
+          sx={{ padding: "0.5em 0.5em 0 0.5em" }}
         />
-        <Typography
-          variant="h5"
-          component="p"
-          sx={{
-            fontWeight: "bold",
-            fontFamily: "Quicksand",
-            fontSize: { xs: "1.4rem", md: "1.5rem" },
-          }}
-        >
-          ${product.price}
-        </Typography>
-      </CardContent>
-      <CardActions sx={{ justifyContent: "flex-end" }}>
-        <Button
-          component={Link}
-          to={`/product/${product.product_id}`}
-          size="small"
-          variant="contained"
-          color="info"
-          sx={{
-            fontFamily: "Roboto Flex",
-            fontWeight: "400",
-            marginRight: "0.6em",
-          }}
-        >
-          Details
-        </Button>
-        <Button
-          size="small"
-          variant="contained"
-          color="success"
-          sx={{ fontFamily: "Roboto Flex", fontWeight: "400" }}
-        >
-          Add to Cart
-        </Button>
-      </CardActions>
+        <CardContent>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="h5"
+            sx={{
+              fontFamily: "Montserrat",
+              fontSize: { xs: "1.4rem", md: "1.5rem" },
+            }}
+          >
+            {product.name}
+          </Typography>
+          <Rating
+            name="read-only-rating"
+            defaultValue={5}
+            readOnly
+            sx={{ marginBottom: "0.5em" }}
+          />
+          <Typography
+            variant="h5"
+            component="p"
+            sx={{
+              fontWeight: "bold",
+              fontFamily: "Quicksand",
+              fontSize: { xs: "1.4rem", md: "1.5rem" },
+            }}
+          >
+            ${product.price}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 };

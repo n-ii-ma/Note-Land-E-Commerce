@@ -12,6 +12,10 @@ import {
   selectErrorUsers,
   selectErrorMessageUsers,
 } from "../features/users/usersSlice";
+import {
+  selectErrorCart,
+  selectErrorMessageCart,
+} from "../features/cart/cartSlice";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -38,21 +42,41 @@ const Error = () => {
   const errorUsers = useSelector(selectErrorUsers);
   const usersErrorMessage = useSelector(selectErrorMessageUsers);
 
-  // Change error message state based on the api error messages
+  // Cart state
+  const errorCart = useSelector(selectErrorCart);
+  const cartErrorMessage = useSelector(selectErrorMessageCart);
+
+  // Product error message
   useEffect(() => {
     if (
       productErrorMessage &&
       typeof productErrorMessage.error !== "undefined"
     ) {
       setErrorMessage(productErrorMessage.error.message);
-    } else if (usersErrorMessage) {
+    }
+  }, [productErrorMessage]);
+
+  // Users error message
+  useEffect(() => {
+    if (usersErrorMessage) {
       setErrorMessage(
         usersErrorMessage.error
           ? usersErrorMessage.error.message
           : usersErrorMessage.message
       );
     }
-  }, [productErrorMessage, usersErrorMessage]);
+  }, [usersErrorMessage]);
+
+  // Cart error message
+  useEffect(() => {
+    if (cartErrorMessage) {
+      setErrorMessage(
+        cartErrorMessage.error
+          ? cartErrorMessage.error.message
+          : cartErrorMessage.message
+      );
+    }
+  }, [cartErrorMessage]);
 
   // Show snackbar if all or one components throws an error
   useEffect(() => {
@@ -67,13 +91,13 @@ const Error = () => {
   // On subsequent runs of the hook, isMounted.current will be true and setOpen(true) will be executed
   useEffect(() => {
     if (isMounted.current) {
-      if (errorUsers) {
+      if (errorUsers || errorCart) {
         setOpen(true);
       }
     } else {
       setTimeout(() => (isMounted.current = true), 1000);
     }
-  }, [errorUsers]);
+  }, [errorUsers, errorCart]);
 
   return (
     <Snackbar
