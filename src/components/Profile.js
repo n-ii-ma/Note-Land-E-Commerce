@@ -11,6 +11,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 import { deleteUser, selectOneUser } from "../features/users/usersSlice";
+import { clearCart } from "../features/cart/cartSlice";
 import { persistor } from "../index";
 
 const Profile = () => {
@@ -45,6 +46,9 @@ const Profile = () => {
 
     // Delete user
     dispatch(deleteUser(userInfo.user_id));
+
+    // Clear cart
+    dispatch(clearCart());
 
     // Purge redux-persist state 1 second after logout
     setTimeout(() => persistor.purge(), 1000);

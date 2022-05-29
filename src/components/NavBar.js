@@ -26,6 +26,7 @@ import useScrollTrigger from "@mui/material/useScrollTrigger";
 import { styled } from "@mui/material";
 
 import { logoutUser, selectLoggedInState } from "../features/users/usersSlice";
+import { selectCartQuantity, clearCart } from "../features/cart/cartSlice";
 import { persistor } from "../index";
 
 const NavButtons = styled("div")(({ theme }) => ({
@@ -62,6 +63,9 @@ const NavBar = () => {
   // Users state
   const loggedInState = useSelector(selectLoggedInState);
 
+  // Cart quantity state
+  const cartQuantity = useSelector(selectCartQuantity);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -76,6 +80,13 @@ const NavBar = () => {
     }
   }, [loggedInState]);
 
+  useEffect(() => {
+    if (cartQuantity > 0) {
+      setInvisible(false);
+      setBadgeNumber(cartQuantity);
+    }
+  }, [cartQuantity]);
+
   // Log out user
   const handleLogOut = () => {
     // Navigate to the home page
@@ -85,6 +96,9 @@ const NavBar = () => {
 
     // Logout user
     dispatch(logoutUser());
+
+    // Clear cart
+    dispatch(clearCart());
 
     // Purge redux-persist state 1 second after logout
     setTimeout(() => persistor.purge(), 1000);
@@ -125,7 +139,7 @@ const NavBar = () => {
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 2, display: { sm: "none", xs: "flex" }, zIndex: 1 }}
+              sx={{ mr: 2, display: { xs: "flex", sm: "none" }, zIndex: 1 }}
             >
               <Badge variant="dot" color="error" invisible={invisible}>
                 <MenuIcon />
@@ -166,7 +180,11 @@ const NavBar = () => {
               >
                 Shop
               </Button>
-              <Badge color="error" badgeContent={badgeNumber}>
+              <Badge
+                color="error"
+                badgeContent={badgeNumber}
+                sx={{ display: { xs: "none", sm: "flex" } }}
+              >
                 <Button
                   startIcon={<ShoppingCartIcon />}
                   sx={{

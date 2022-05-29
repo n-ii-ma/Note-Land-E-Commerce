@@ -22,6 +22,7 @@ export const addProductToCart = createAsyncThunk(
 // Initial state
 const initialState = {
   cartMessage: {},
+  cartQuantity: 0,
   isLoading: false,
   hasError: false,
   errorMessage: {},
@@ -30,6 +31,11 @@ const initialState = {
 const cartSlice = createSlice({
   name: "cart",
   initialState,
+  reducers: {
+    clearCart: () => {
+      return initialState;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(addProductToCart.pending, (state) => {
@@ -38,6 +44,7 @@ const cartSlice = createSlice({
       })
       .addCase(addProductToCart.fulfilled, (state, action) => {
         state.cartMessage = action.payload;
+        state.cartQuantity += 1;
         state.isLoading = false;
         state.hasError = false;
       })
@@ -52,8 +59,12 @@ const cartSlice = createSlice({
 // Selectors
 export const selectCartMessage = (state) => state.cart.cartMessage;
 export const selectErrorMessageCart = (state) => state.cart.errorMessage;
+export const selectCartQuantity = (state) => state.cart.cartQuantity;
 export const selectLoadingCart = (state) => state.cart.isLoading;
 export const selectErrorCart = (state) => state.cart.hasError;
+
+// Action
+export const { clearCart } = cartSlice.actions;
 
 // Reducer
 export default cartSlice.reducer;
