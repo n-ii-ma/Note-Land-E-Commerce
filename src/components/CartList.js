@@ -14,7 +14,7 @@ const CartList = () => {
 
   return (
     <Box marginTop={{ xs: "6em", sm: "7em" }}>
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         {!cartProducts?.length ? (
           <Typography
             align="center"
@@ -48,7 +48,13 @@ const CartList = () => {
               }}
             >
               {cartProducts.map((product) => (
-                <Grid item sm={12} md={8} key={product.product_id}>
+                <Grid
+                  item
+                  xs={12}
+                  md={8}
+                  key={product.product_id}
+                  sx={{ width: "100%" }}
+                >
                   <Cart product={product} />
                 </Grid>
               ))}

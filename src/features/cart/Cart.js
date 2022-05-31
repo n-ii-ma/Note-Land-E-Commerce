@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import { CardActionArea } from "@mui/material";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
@@ -17,13 +16,13 @@ const Cart = ({ product }) => {
   const [quantity, setQuantity] = useState(product.quantity);
 
   return (
-    <Card raised sx={{ display: "flex", height: { xs: "140px", md: "175px" } }}>
+    <Card raised sx={{ display: "flex", height: { xs: "140px", sm: "165px" } }}>
       <CardActionArea
         component={Link}
         to={`/product/${product.product_id}`}
         sx={{
-          width: { xs: "126px", md: "176px" },
-          height: { xs: "140px", md: "175px" },
+          width: { xs: "126px", sm: "151px" },
+          height: { xs: "140px", sm: "165px" },
           borderRight: 1,
           borderColor: "divider",
         }}
@@ -34,42 +33,45 @@ const Cart = ({ product }) => {
           alt={product.name}
           title={product.name}
           sx={{
-            width: { xs: "125px", md: "175px" },
-            height: { xs: "140px", md: "175px" },
+            width: { xs: "125px", sm: "150px" },
+            height: { xs: "140px", sm: "165px" },
           }}
         />
       </CardActionArea>
-      <CardContent
+      <Box
         sx={{
           display: "flex",
           flexDirection: "column",
+          justifyContent: "space-between",
           padding: "0.5em",
+          width: "100%",
         }}
       >
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="h5"
-          sx={{
-            fontFamily: "Montserrat",
-            fontSize: { xs: "1rem", md: "1.4rem" },
-            fontWeight: "bold",
-          }}
-        >
-          {product.name}
-        </Typography>
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="h5"
-          sx={{
-            fontFamily: "Quicksand",
-            fontSize: { xs: "0.85rem", md: "1.25rem" },
-            color: "gray",
-          }}
-        >
-          {product.color}
-        </Typography>
+        <Box>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="h5"
+            sx={{
+              fontFamily: "Montserrat",
+              fontSize: { xs: "1rem", sm: "1.2rem", md: "1.4rem" },
+              fontWeight: "bold",
+            }}
+          >
+            {product.name}
+          </Typography>
+          <Typography
+            variant="h5"
+            component="h5"
+            sx={{
+              fontFamily: "Quicksand",
+              fontSize: { xs: "0.85rem", sm: "1rem", md: "1.25rem" },
+              color: "gray",
+            }}
+          >
+            {product.color}
+          </Typography>
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -77,7 +79,10 @@ const Cart = ({ product }) => {
           }}
         >
           <CardActions sx={{ padding: 0 }}>
-            <FormControl sx={{ marginTop: 1.5, minWidth: 75 }} size="small">
+            <FormControl
+              sx={{ marginTop: 1.5, minWidth: { xs: 75, sm: 100 } }}
+              size="small"
+            >
               <InputLabel id="quantity-label">Quantity</InputLabel>
               <Select
                 value={quantity}
@@ -104,14 +109,14 @@ const Cart = ({ product }) => {
               marginTop: "0.75em",
               fontWeight: "bold",
               fontFamily: "Quicksand",
-              fontSize: { xs: "1rem", md: "1.4rem" },
+              fontSize: { xs: "1rem", sm: "1.2rem", md: "1.4rem" },
               alignSelf: "flex-end",
             }}
           >
             ${product.price}
           </Typography>
         </Box>
-      </CardContent>
+      </Box>
     </Card>
   );
 };
