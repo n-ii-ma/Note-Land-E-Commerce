@@ -81,7 +81,7 @@ const ProductDetails = () => {
           product_id: product_id,
           quantity: quantity,
           color: colorSelect,
-          id: user?.user && user?.user.cart_id,
+          cart_id: user?.user && user?.user.cart_id,
         })
       );
     } else {

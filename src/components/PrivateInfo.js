@@ -35,10 +35,10 @@ const PrivateInfo = () => {
 
   // On submit
   const onSubmit = ({ first_name, last_name, email, password }) => {
-    const id = userInfo.user_id;
+    const user_id = userInfo.user_id;
 
     dispatch(
-      updateUserPrivateInfo({ first_name, last_name, email, password, id })
+      updateUserPrivateInfo({ first_name, last_name, email, password, user_id })
     );
   };
 

@@ -5,9 +5,9 @@ import { axiosApiPrivate } from "../../config/axiosConfig";
 // Add product to cart
 export const addProductToCart = createAsyncThunk(
   "cart/addProductToCart",
-  async ({ product_id, quantity, color, id }, { rejectWithValue }) => {
+  async ({ product_id, quantity, color, cart_id }, { rejectWithValue }) => {
     try {
-      const response = await axiosApiPrivate.post(`/carts/${id}`, {
+      const response = await axiosApiPrivate.post(`/carts/${cart_id}`, {
         product_id,
         quantity,
         color,
@@ -19,11 +19,27 @@ export const addProductToCart = createAsyncThunk(
   }
 );
 
+// Get a user's cart products
 export const getCartProducts = createAsyncThunk(
   "cart/getCartProducts",
-  async (id, { rejectWithValue }) => {
+  async (user_id, { rejectWithValue }) => {
     try {
-      const response = await axiosApiPrivate.get(`/carts/${id}`);
+      const response = await axiosApiPrivate.get(`/carts/${user_id}`);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+// Delete cart product
+export const deleteCartProduct = createAsyncThunk(
+  "cart/deleteCartProduct",
+  async ({ cart_id, product_id }, { rejectWithValue }) => {
+    try {
+      const response = await axiosApiPrivate.delete(
+        `/carts/${cart_id}/products/${product_id}`
+      );
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -47,6 +63,12 @@ const cartSlice = createSlice({
   reducers: {
     clearCart: () => {
       return initialState;
+    },
+    removeProduct: (state, action) => {
+      const productIndex = state.cartProducts.findIndex(
+        (product) => product.id === action.payload
+      );
+      state.cartProducts.splice(productIndex, 1);
     },
   },
   extraReducers: (builder) => {
@@ -80,6 +102,21 @@ const cartSlice = createSlice({
         state.errorMessage = action.payload;
         state.isLoading = false;
         state.hasError = true;
+      })
+      .addCase(deleteCartProduct.pending, (state) => {
+        state.isLoading = true;
+        state.hasError = false;
+      })
+      .addCase(deleteCartProduct.fulfilled, (state, action) => {
+        state.cartMessage = action.payload;
+        state.cartQuantity -= 1;
+        state.isLoading = false;
+        state.hasError = false;
+      })
+      .addCase(deleteCartProduct.rejected, (state, action) => {
+        state.errorMessage = action.payload;
+        state.isLoading = false;
+        state.hasError = true;
       });
   },
 });
@@ -93,7 +130,7 @@ export const selectLoadingCart = (state) => state.cart.isLoading;
 export const selectErrorCart = (state) => state.cart.hasError;
 
 // Action
-export const { clearCart } = cartSlice.actions;
+export const { clearCart, removeProduct } = cartSlice.actions;
 
 // Reducer
 export default cartSlice.reducer;

@@ -32,9 +32,9 @@ const Address = () => {
 
   // On submit
   const onSubmit = ({ address, city, postal_code, phone }) => {
-    const id = userInfo.user_id;
+    const user_id = userInfo.user_id;
 
-    dispatch(updateUserAddress({ address, city, postal_code, phone, id }));
+    dispatch(updateUserAddress({ address, city, postal_code, phone, user_id }));
   };
 
   return (

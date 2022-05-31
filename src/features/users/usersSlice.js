@@ -53,9 +53,9 @@ export const logoutUser = createAsyncThunk(
 // Get user
 export const getUser = createAsyncThunk(
   "user/getUser",
-  async (id, { rejectWithValue }) => {
+  async (user_id, { rejectWithValue }) => {
     try {
-      const response = await axiosApiPrivate.get(`/users/${id}`);
+      const response = await axiosApiPrivate.get(`/users/${user_id}`);
       const data = response.data;
       return {
         user_id: data.user_id,
@@ -77,16 +77,19 @@ export const getUser = createAsyncThunk(
 export const updateUserPrivateInfo = createAsyncThunk(
   "user/updateUserPrivateInfo",
   async (
-    { first_name, last_name, email, password, id },
+    { first_name, last_name, email, password, user_id },
     { rejectWithValue }
   ) => {
     try {
-      const response = await axiosApiPrivate.put(`/users/credentials/${id}`, {
-        first_name,
-        last_name,
-        email,
-        password,
-      });
+      const response = await axiosApiPrivate.put(
+        `/users/credentials/${user_id}`,
+        {
+          first_name,
+          last_name,
+          email,
+          password,
+        }
+      );
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -97,9 +100,12 @@ export const updateUserPrivateInfo = createAsyncThunk(
 // Update user's address
 export const updateUserAddress = createAsyncThunk(
   "user/updateUserAddress",
-  async ({ address, city, postal_code, phone, id }, { rejectWithValue }) => {
+  async (
+    { address, city, postal_code, phone, user_id },
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await axiosApiPrivate.put(`/users/address/${id}`, {
+      const response = await axiosApiPrivate.put(`/users/address/${user_id}`, {
         address,
         city,
         postal_code,
@@ -115,9 +121,9 @@ export const updateUserAddress = createAsyncThunk(
 // Delete user
 export const deleteUser = createAsyncThunk(
   "user/deleteUser",
-  async (id, { rejectWithValue }) => {
+  async (user_id, { rejectWithValue }) => {
     try {
-      const response = await axiosApiPrivate.delete(`/users/${id}`);
+      const response = await axiosApiPrivate.delete(`/users/${user_id}`);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
