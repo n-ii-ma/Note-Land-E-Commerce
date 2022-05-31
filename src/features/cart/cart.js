@@ -14,7 +14,7 @@ import Select from "@mui/material/Select";
 
 const Cart = ({ product }) => {
   // Quantity selection state
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(product.quantity);
 
   return (
     <Card raised sx={{ display: "flex", height: { xs: "140px", md: "175px" } }}>

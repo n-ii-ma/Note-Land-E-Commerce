@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
 import { selectCartProducts } from "../features/cart/cartSlice";
-import Cart from "../features/cart/Cart";
+import Cart from "../features/cart/Cart.js";
 
 const CartList = () => {
   // Cart state
