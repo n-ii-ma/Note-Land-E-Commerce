@@ -9,6 +9,7 @@ import ProductDetails from "../components/ProductDetails";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import Dashboard from "../components/Dashboard";
+import CartList from "../components/CartList";
 import Footer from "../components/Footer";
 import Success from "../components/Success";
 import Error from "../components/Error";
@@ -42,6 +43,7 @@ function App() {
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/cart" element={<CartList />} />
         </Routes>
       </div>
       <div>

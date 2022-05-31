@@ -19,8 +19,21 @@ export const addProductToCart = createAsyncThunk(
   }
 );
 
+export const getCartProducts = createAsyncThunk(
+  "cart/getCartProducts",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axiosApiPrivate.get(`/carts/${id}`);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 // Initial state
 const initialState = {
+  cartProducts: {},
   cartMessage: {},
   cartQuantity: 0,
   isLoading: false,
@@ -52,11 +65,27 @@ const cartSlice = createSlice({
         state.errorMessage = action.payload;
         state.isLoading = false;
         state.hasError = true;
+      })
+      .addCase(getCartProducts.pending, (state) => {
+        state.isLoading = true;
+        state.hasError = false;
+      })
+      .addCase(getCartProducts.fulfilled, (state, action) => {
+        state.cartProducts = action.payload;
+        state.cartQuantity = action.payload.length;
+        state.isLoading = false;
+        state.hasError = false;
+      })
+      .addCase(getCartProducts.rejected, (state, action) => {
+        state.errorMessage = action.payload;
+        state.isLoading = false;
+        state.hasError = true;
       });
   },
 });
 
 // Selectors
+export const selectCartProducts = (state) => state.cart.cartProducts;
 export const selectCartMessage = (state) => state.cart.cartMessage;
 export const selectErrorMessageCart = (state) => state.cart.errorMessage;
 export const selectCartQuantity = (state) => state.cart.cartQuantity;

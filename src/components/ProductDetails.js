@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import Carousel from "react-material-ui-carousel";
@@ -28,7 +28,7 @@ import {
   selectOneErrorProduct,
   getProduct,
 } from "../features/products/productsSlice";
-import { selectUser } from "../features/users/usersSlice";
+import { selectUser, selectLoggedInState } from "../features/users/usersSlice";
 import {
   addProductToCart,
   selectLoadingCart,
@@ -52,11 +52,13 @@ const ProductDetails = () => {
 
   // Users state
   const user = useSelector(selectUser);
+  const loggedInState = useSelector(selectLoggedInState);
 
   // Cart state
   const loadingCart = useSelector(selectLoadingCart);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Get the product id from the url parameter
   const { product_id } = useParams();
@@ -73,14 +75,18 @@ const ProductDetails = () => {
 
   // Add product to cart
   const handleAddToCart = () => {
-    dispatch(
-      addProductToCart({
-        product_id: product_id,
-        quantity: quantity,
-        color: colorSelect,
-        id: user?.user && user?.user.cart_id,
-      })
-    );
+    if (loggedInState) {
+      dispatch(
+        addProductToCart({
+          product_id: product_id,
+          quantity: quantity,
+          color: colorSelect,
+          id: user?.user && user?.user.cart_id,
+        })
+      );
+    } else {
+      navigate("/auth/login");
+    }
   };
 
   // Show skeleton if the product is loading or has error

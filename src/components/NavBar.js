@@ -25,8 +25,16 @@ import Slide from "@mui/material/Slide";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import { styled } from "@mui/material";
 
-import { logoutUser, selectLoggedInState } from "../features/users/usersSlice";
-import { selectCartQuantity, clearCart } from "../features/cart/cartSlice";
+import {
+  logoutUser,
+  selectUser,
+  selectLoggedInState,
+} from "../features/users/usersSlice";
+import {
+  getCartProducts,
+  clearCart,
+  selectCartQuantity,
+} from "../features/cart/cartSlice";
 import { persistor } from "../index";
 
 const NavButtons = styled("div")(({ theme }) => ({
@@ -47,11 +55,9 @@ const NavBar = () => {
   const [authenticated, setAuthenticated] = useState(false);
 
   // Badge visibility state
-  // eslint-disable-next-line
   const [invisible, setInvisible] = useState(true);
 
   // Badge number state
-  // eslint-disable-next-line
   const [badgeNumber, setBadgeNumber] = useState(0);
 
   // Position of authentication menu state
@@ -61,6 +67,7 @@ const NavBar = () => {
   const trigger = useScrollTrigger();
 
   // Users state
+  const user = useSelector(selectUser);
   const loggedInState = useSelector(selectLoggedInState);
 
   // Cart quantity state
@@ -80,12 +87,20 @@ const NavBar = () => {
     }
   }, [loggedInState]);
 
+  // Show badge when cart isn't empty
   useEffect(() => {
     if (cartQuantity > 0) {
       setInvisible(false);
       setBadgeNumber(cartQuantity);
     }
   }, [cartQuantity]);
+
+  // Get user's cart products when logged in
+  useEffect(() => {
+    if (loggedInState) {
+      dispatch(getCartProducts(user.user.user_id));
+    }
+  }, [dispatch, loggedInState, user]);
 
   // Log out user
   const handleLogOut = () => {
@@ -186,6 +201,8 @@ const NavBar = () => {
                 sx={{ display: { xs: "none", sm: "flex" } }}
               >
                 <Button
+                  component={Link}
+                  to="/cart"
                   startIcon={<ShoppingCartIcon />}
                   sx={{
                     color: "black",
@@ -284,6 +301,8 @@ const NavBar = () => {
               <ListItem>
                 <Badge color="error" badgeContent={badgeNumber}>
                   <Button
+                    component={Link}
+                    to="/cart"
                     startIcon={<ShoppingCartIcon />}
                     sx={{
                       color: "white",

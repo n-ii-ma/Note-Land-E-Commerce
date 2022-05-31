@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import ProductsSkeleton from "./ProductsSkeleton";
-import Products from "../features/products/Products";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -13,6 +11,8 @@ import {
   selectAllErrorProducts,
   getProducts,
 } from "../features/products/productsSlice";
+import ProductsSkeleton from "./ProductsSkeleton";
+import Products from "../features/products/Products";
 
 const ProductsList = () => {
   // Products state
