@@ -31,8 +31,8 @@ const Cart = ({ product }) => {
     const cart_id = user.user.cart_id;
     const product_id = product.product_id;
 
-    dispatch(removeProduct(product_id));
     dispatch(deleteCartProduct({ cart_id, product_id }));
+    dispatch(removeProduct(product_id));
   };
 
   return (
