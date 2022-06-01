@@ -97,7 +97,6 @@ const cartSlice = createSlice({
       })
       .addCase(addProductToCart.fulfilled, (state, action) => {
         state.cartMessage = action.payload;
-        state.cartQuantity += 1;
         state.refreshCart = true;
         state.isLoading = false;
         state.hasError = false;
@@ -150,7 +149,6 @@ const cartSlice = createSlice({
         state.refreshCart = false;
       })
       .addCase(deleteCartProduct.fulfilled, (state, action) => {
-        state.cartQuantity -= 1;
         state.refreshCart = true;
         state.isLoading = false;
         state.hasError = false;
