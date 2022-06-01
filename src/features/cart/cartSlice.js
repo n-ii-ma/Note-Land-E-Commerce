@@ -49,7 +49,7 @@ export const deleteCartProduct = createAsyncThunk(
 
 // Initial state
 const initialState = {
-  cartProducts: {},
+  cartProducts: [],
   cartMessage: {},
   cartQuantity: 0,
   isLoading: false,
@@ -99,19 +99,17 @@ const cartSlice = createSlice({
       })
       .addCase(getCartProducts.fulfilled, (state, action) => {
         state.cartProducts = action.payload;
-        state.cartQuantity = action.payload.length;
+        state.cartQuantity = Array.isArray(action.payload)
+          ? action.payload.length
+          : 0;
         state.refreshCart = false;
         state.isLoading = false;
         state.hasError = false;
       })
       .addCase(getCartProducts.rejected, (state, action) => {
-        state.errorMessage =
-          action.payload.error.message === "Cart Is Empty!"
-            ? {}
-            : action.payload;
+        state.errorMessage = action.payload;
         state.isLoading = false;
-        state.hasError =
-          action.payload.error.message === "Cart Is Empty!" ? false : true;
+        state.hasError = true;
         state.refreshCart = false;
       })
       .addCase(deleteCartProduct.pending, (state) => {
