@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 
 import { selectCartProducts } from "../features/cart/cartSlice";
 import Cart from "../features/cart/Cart";
+import CartSummary from "./CartSummary";
 
 const CartList = () => {
   // Cart state
@@ -41,23 +42,27 @@ const CartList = () => {
             <Grid
               container
               direction={{ xs: "column", sm: "row" }}
-              justifyContent="center"
-              alignItems="center"
+              justifyContent="space-evenly"
               sx={{
-                gap: "1em",
+                gap: "2em",
               }}
             >
-              {cartProducts.map((product) => (
-                <Grid
-                  item
-                  xs={12}
-                  md={8}
-                  key={product.product_id}
-                  sx={{ width: "100%" }}
-                >
-                  <Cart product={product} />
-                </Grid>
-              ))}
+              <Grid
+                container
+                item
+                xs={12}
+                md={7}
+                sx={{ width: "100%", gap: "1em" }}
+              >
+                {cartProducts.map((product) => (
+                  <Grid item key={product.product_id} sx={{ width: "100%" }}>
+                    <Cart product={product} />
+                  </Grid>
+                ))}
+              </Grid>
+              <Grid item xs={12} md={4} sx={{ width: "100%" }}>
+                <CartSummary />
+              </Grid>
             </Grid>
           </Card>
         )}
