@@ -14,9 +14,11 @@ import Container from "@mui/material/Container";
 
 import {
   loginUser,
+  selectUser,
   selectLoggedInState,
   selectLoadingUsers,
 } from "../features/users/usersSlice";
+import { getCartProducts } from "../features/cart/cartSlice";
 import LoadingBackdrop from "./LoadingBackdrop";
 
 const Login = () => {
@@ -25,18 +27,20 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   // Users state
+  const user = useSelector(selectUser);
   const loggedInState = useSelector(selectLoggedInState);
   const loadingUsers = useSelector(selectLoadingUsers);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Navigate to the homepage if user gets logged in
+  // Navigate to the homepage and get user's cart products if user gets logged in
   useEffect(() => {
     if (loggedInState) {
+      dispatch(getCartProducts(user.user.user_id));
       navigate("/", { replace: true });
     }
-  }, [navigate, loggedInState]);
+  }, [dispatch, navigate, loggedInState, user]);
 
   // On submit
   const handleSubmit = (e) => {

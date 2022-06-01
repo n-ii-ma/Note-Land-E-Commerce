@@ -54,6 +54,7 @@ const initialState = {
   cartQuantity: 0,
   isLoading: false,
   hasError: false,
+  refreshCart: false,
   errorMessage: {},
 };
 
@@ -66,7 +67,7 @@ const cartSlice = createSlice({
     },
     removeProduct: (state, action) => {
       const productIndex = state.cartProducts.findIndex(
-        (product) => product.id === action.payload
+        (product) => product.product_id === action.payload
       );
       state.cartProducts.splice(productIndex, 1);
     },
@@ -80,6 +81,7 @@ const cartSlice = createSlice({
       .addCase(addProductToCart.fulfilled, (state, action) => {
         state.cartMessage = action.payload;
         state.cartQuantity += 1;
+        state.refreshCart = true;
         state.isLoading = false;
         state.hasError = false;
       })
@@ -95,13 +97,18 @@ const cartSlice = createSlice({
       .addCase(getCartProducts.fulfilled, (state, action) => {
         state.cartProducts = action.payload;
         state.cartQuantity = action.payload.length;
+        state.refreshCart = false;
         state.isLoading = false;
         state.hasError = false;
       })
       .addCase(getCartProducts.rejected, (state, action) => {
-        state.errorMessage = action.payload;
+        state.errorMessage =
+          action.payload.error.message === "Cart Is Empty!"
+            ? {}
+            : action.payload;
         state.isLoading = false;
-        state.hasError = true;
+        state.hasError =
+          action.payload.error.message === "Cart Is Empty!" ? false : true;
       })
       .addCase(deleteCartProduct.pending, (state) => {
         state.isLoading = true;
@@ -110,6 +117,7 @@ const cartSlice = createSlice({
       .addCase(deleteCartProduct.fulfilled, (state, action) => {
         state.cartMessage = action.payload;
         state.cartQuantity -= 1;
+        state.refreshCart = true;
         state.isLoading = false;
         state.hasError = false;
       })
@@ -126,6 +134,7 @@ export const selectCartProducts = (state) => state.cart.cartProducts;
 export const selectCartMessage = (state) => state.cart.cartMessage;
 export const selectErrorMessageCart = (state) => state.cart.errorMessage;
 export const selectCartQuantity = (state) => state.cart.cartQuantity;
+export const selectRefreshCart = (state) => state.cart.refreshCart;
 export const selectLoadingCart = (state) => state.cart.isLoading;
 export const selectErrorCart = (state) => state.cart.hasError;
 

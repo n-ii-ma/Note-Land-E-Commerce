@@ -52,7 +52,7 @@ const Success = () => {
     }
   }, [updateMessage]);
 
-  // Add to cart success message
+  // Cart success message
   useEffect(() => {
     if (cartMessage?.message) {
       setSuccessMessage(cartMessage.message);

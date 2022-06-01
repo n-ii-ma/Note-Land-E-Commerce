@@ -41,7 +41,7 @@ const Profile = () => {
   const handleDelete = () => {
     // Navigate to the home page
     if (location.pathname === "/dashboard") {
-      navigate("/");
+      navigate("/", { replace: true });
     }
 
     // Delete user

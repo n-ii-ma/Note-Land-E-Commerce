@@ -1,7 +1,10 @@
 import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 
 import "../App.css";
+import { selectUser, selectLoggedInState } from "../features/users/usersSlice";
+import { getCartProducts, selectRefreshCart } from "../features/cart/cartSlice";
 import NavBar from "../components/NavBar";
 import Header from "../components/Header";
 import ProductsList from "../components/ProductsList";
@@ -24,6 +27,22 @@ function App() {
     }, [pathname]);
   };
   useScrollToTop();
+
+  // Refresh cart state
+  const refreshCart = useSelector(selectRefreshCart);
+
+  // Users state
+  const user = useSelector(selectUser);
+  const loggedInState = useSelector(selectLoggedInState);
+
+  const dispatch = useDispatch();
+
+  // Get cart products when cart is refreshed
+  useEffect(() => {
+    if (loggedInState && refreshCart) {
+      dispatch(getCartProducts(user.user.user_id));
+    }
+  }, [dispatch, loggedInState, refreshCart, user]);
 
   return (
     <div className="App">
