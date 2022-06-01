@@ -77,6 +77,7 @@ const cartSlice = createSlice({
       .addCase(addProductToCart.pending, (state) => {
         state.isLoading = true;
         state.hasError = false;
+        state.refreshCart = false;
       })
       .addCase(addProductToCart.fulfilled, (state, action) => {
         state.cartMessage = action.payload;
@@ -89,10 +90,12 @@ const cartSlice = createSlice({
         state.errorMessage = action.payload;
         state.isLoading = false;
         state.hasError = true;
+        state.refreshCart = false;
       })
       .addCase(getCartProducts.pending, (state) => {
         state.isLoading = true;
         state.hasError = false;
+        state.refreshCart = false;
       })
       .addCase(getCartProducts.fulfilled, (state, action) => {
         state.cartProducts = action.payload;
@@ -109,10 +112,12 @@ const cartSlice = createSlice({
         state.isLoading = false;
         state.hasError =
           action.payload.error.message === "Cart Is Empty!" ? false : true;
+        state.refreshCart = false;
       })
       .addCase(deleteCartProduct.pending, (state) => {
         state.isLoading = true;
         state.hasError = false;
+        state.refreshCart = false;
       })
       .addCase(deleteCartProduct.fulfilled, (state, action) => {
         state.cartMessage = action.payload;
@@ -125,6 +130,7 @@ const cartSlice = createSlice({
         state.errorMessage = action.payload;
         state.isLoading = false;
         state.hasError = true;
+        state.refreshCart = false;
       });
   },
 });

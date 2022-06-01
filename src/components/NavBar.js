@@ -82,8 +82,11 @@ const NavBar = () => {
   useEffect(() => {
     if (cartQuantity > 0) {
       setInvisible(false);
-      setBadgeNumber(cartQuantity);
+    } else {
+      setInvisible(true);
     }
+
+    setBadgeNumber(cartQuantity);
   }, [cartQuantity]);
 
   // Log out user

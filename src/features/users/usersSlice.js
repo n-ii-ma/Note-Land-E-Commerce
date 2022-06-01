@@ -225,7 +225,6 @@ const usersSlice = createSlice({
         state.isLoggedIn = true;
         state.isLoggedOut = false;
         state.isLoading = false;
-        state.isUpdated = false;
         state.hasError = false;
       })
       .addCase(getUser.rejected, (state, action) => {
