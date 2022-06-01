@@ -32,6 +32,22 @@ export const getCartProducts = createAsyncThunk(
   }
 );
 
+// Add product to cart
+export const updateCartProduct = createAsyncThunk(
+  "cart/updateCartProduct",
+  async ({ product_id, quantity, cart_id }, { rejectWithValue }) => {
+    try {
+      const response = await axiosApiPrivate.put(`/carts/${cart_id}`, {
+        product_id,
+        quantity,
+      });
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 // Delete cart product
 export const deleteCartProduct = createAsyncThunk(
   "cart/deleteCartProduct",
@@ -112,13 +128,28 @@ const cartSlice = createSlice({
         state.hasError = true;
         state.refreshCart = false;
       })
+      .addCase(updateCartProduct.pending, (state) => {
+        state.isLoading = true;
+        state.hasError = false;
+        state.refreshCart = false;
+      })
+      .addCase(updateCartProduct.fulfilled, (state, action) => {
+        state.refreshCart = true;
+        state.isLoading = false;
+        state.hasError = false;
+      })
+      .addCase(updateCartProduct.rejected, (state, action) => {
+        state.errorMessage = action.payload;
+        state.isLoading = false;
+        state.hasError = true;
+        state.refreshCart = false;
+      })
       .addCase(deleteCartProduct.pending, (state) => {
         state.isLoading = true;
         state.hasError = false;
         state.refreshCart = false;
       })
       .addCase(deleteCartProduct.fulfilled, (state, action) => {
-        state.cartMessage = action.payload;
         state.cartQuantity -= 1;
         state.refreshCart = true;
         state.isLoading = false;

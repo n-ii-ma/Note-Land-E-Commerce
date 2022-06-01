@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
@@ -14,7 +14,11 @@ import Select from "@mui/material/Select";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import { deleteCartProduct, removeProduct } from "./cartSlice";
+import {
+  updateCartProduct,
+  deleteCartProduct,
+  removeProduct,
+} from "./cartSlice";
 import { selectUser } from "../users/usersSlice";
 
 const Cart = ({ product }) => {
@@ -25,6 +29,23 @@ const Cart = ({ product }) => {
   const user = useSelector(selectUser);
 
   const dispatch = useDispatch();
+
+  // Update product quantity in cart
+  useEffect(() => {
+    const cart_id = user.user.cart_id;
+    const product_id = product.product_id;
+
+    // Don't render if UI quantity and server product quantity are equal
+    if (quantity !== product.quantity) {
+      dispatch(updateCartProduct({ product_id, quantity, cart_id }));
+    }
+  }, [
+    dispatch,
+    product.quantity,
+    product.product_id,
+    quantity,
+    user.user.cart_id,
+  ]);
 
   // Delete product from cart
   const handleDeleteProduct = () => {
