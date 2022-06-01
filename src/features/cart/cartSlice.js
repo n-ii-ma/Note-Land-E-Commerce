@@ -63,6 +63,19 @@ export const deleteCartProduct = createAsyncThunk(
   }
 );
 
+// Check out cart
+export const checkout = createAsyncThunk(
+  "cart/checkout",
+  async (cart_id, { rejectWithValue }) => {
+    try {
+      const response = await axiosApiPrivate.post(`/carts/${cart_id}/checkout`);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 // Initial state
 const initialState = {
   cartProducts: [],
@@ -154,6 +167,25 @@ const cartSlice = createSlice({
         state.hasError = false;
       })
       .addCase(deleteCartProduct.rejected, (state, action) => {
+        state.errorMessage = action.payload;
+        state.isLoading = false;
+        state.hasError = true;
+        state.refreshCart = false;
+      })
+      .addCase(checkout.pending, (state) => {
+        state.isLoading = true;
+        state.hasError = false;
+        state.refreshCart = false;
+      })
+      .addCase(checkout.fulfilled, (state, action) => {
+        state.cartMessage = action.payload;
+        state.cartProducts = [];
+        state.cartQuantity = 0;
+        state.refreshCart = false;
+        state.isLoading = false;
+        state.hasError = false;
+      })
+      .addCase(checkout.rejected, (state, action) => {
         state.errorMessage = action.payload;
         state.isLoading = false;
         state.hasError = true;

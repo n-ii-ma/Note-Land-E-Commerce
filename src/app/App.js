@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 import "../App.css";
 import { selectUser, selectLoggedInState } from "../features/users/usersSlice";
@@ -44,6 +44,16 @@ function App() {
     }
   }, [dispatch, loggedInState, refreshCart, user]);
 
+  // Protected routes for not logged in users
+  const ProtectedRoutes = ({ children, redirectTo }) => {
+    return loggedInState ? children : <Navigate to={redirectTo} />;
+  };
+
+  // Restricted routes for logged in users
+  const RestrictedRoutes = ({ children, redirectTo }) => {
+    return !loggedInState ? children : <Navigate to={redirectTo} />;
+  };
+
   return (
     <div className="App">
       <div>
@@ -59,9 +69,30 @@ function App() {
             }
           />
           <Route path="/product/:product_id" element={<ProductDetails />} />
-          <Route path="/auth/login" element={<Login />} />
-          <Route path="/auth/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/auth/login"
+            element={
+              <RestrictedRoutes redirectTo="/">
+                <Login />
+              </RestrictedRoutes>
+            }
+          />
+          <Route
+            path="/auth/register"
+            element={
+              <RestrictedRoutes redirectTo="/">
+                <Register />
+              </RestrictedRoutes>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoutes redirectTo="/auth/login">
+                <Dashboard />
+              </ProtectedRoutes>
+            }
+          />
           <Route path="/cart" element={<CartList />} />
         </Routes>
       </div>

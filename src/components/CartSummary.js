@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import CardContent from "@mui/material/CardContent";
@@ -7,14 +7,20 @@ import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 
-import { selectCartProducts } from "../features/cart/cartSlice";
+import { checkout, selectCartProducts } from "../features/cart/cartSlice";
+import { selectUser } from "../features/users/usersSlice";
 
 const CartSummary = () => {
   // Cart state
   const cartProducts = useSelector(selectCartProducts);
 
+  // Users state
+  const user = useSelector(selectUser);
+
   // Total price state
   const [total, setTotal] = useState(0);
+
+  const dispatch = useDispatch();
 
   // Calculate total price
   useEffect(() => {
@@ -24,6 +30,11 @@ const CartSummary = () => {
         .toFixed(2)
     );
   }, [cartProducts]);
+
+  // Handle checkout
+  const handleCheckout = () => {
+    dispatch(checkout(user.user.cart_id));
+  };
 
   return (
     <Card
@@ -131,7 +142,12 @@ const CartSummary = () => {
         </Box>
       </CardContent>
       <CardActions>
-        <Button variant="contained" fullWidth color="success">
+        <Button
+          onClick={handleCheckout}
+          variant="contained"
+          fullWidth
+          color="success"
+        >
           Check Out
         </Button>
       </CardActions>
