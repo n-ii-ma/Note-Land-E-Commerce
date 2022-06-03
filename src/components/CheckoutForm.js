@@ -58,6 +58,9 @@ const CheckoutForm = () => {
     const { error } = await stripe.confirmPayment({
       // `Elements` instance that was used to create the Payment Element
       elements,
+      confirmParams: {
+        receipt_email: user.user.email,
+      },
       redirect: "if_required",
     });
 
