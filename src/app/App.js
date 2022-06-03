@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
 
 import "../App.css";
 import { selectUser, selectLoggedInState } from "../features/users/usersSlice";
@@ -16,6 +17,11 @@ import CartList from "../components/CartList";
 import Footer from "../components/Footer";
 import Success from "../components/Success";
 import Error from "../components/Error";
+
+// Test publishable API key
+export const stripePromise = loadStripe(
+  "pk_test_51L65vtDWUSKm7MVsZEhJewIDF7jhrNAniDpjNZf4fT3vFP79bLVscoERJ7QkBokECw7LKxSShEWMDqmrW0Z7TKG100vyRH3Zh2"
+);
 
 function App() {
   // Scroll to top on every transition custom hook

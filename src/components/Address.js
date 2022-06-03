@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 
 import { updateAddressSchema } from "../config/validationSchema";
 import { updateUserAddress, selectOneUser } from "../features/users/usersSlice";
+import { resetError } from "../features/payment/paymentSlice";
 
 const Address = () => {
   // User state
@@ -35,6 +36,9 @@ const Address = () => {
     const user_id = userInfo.user_id;
 
     dispatch(updateUserAddress({ address, city, postal_code, phone, user_id }));
+
+    // Reset missing address error on payment
+    dispatch(resetError());
   };
 
   return (

@@ -16,6 +16,10 @@ import {
   selectErrorCart,
   selectErrorMessageCart,
 } from "../features/cart/cartSlice";
+import {
+  selectErrorPayment,
+  selectErrorMessagePayment,
+} from "../features/payment/paymentSlice";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -45,6 +49,10 @@ const Error = () => {
   // Cart state
   const errorCart = useSelector(selectErrorCart);
   const cartErrorMessage = useSelector(selectErrorMessageCart);
+
+  // Payment state
+  const errorPayment = useSelector(selectErrorPayment);
+  const paymentErrorMessage = useSelector(selectErrorMessagePayment);
 
   // Product error message
   useEffect(() => {
@@ -78,6 +86,17 @@ const Error = () => {
     }
   }, [cartErrorMessage]);
 
+  // Payment error message
+  useEffect(() => {
+    if (paymentErrorMessage) {
+      setErrorMessage(
+        paymentErrorMessage.error
+          ? paymentErrorMessage.error.message
+          : paymentErrorMessage.message
+      );
+    }
+  }, [paymentErrorMessage]);
+
   // Show snackbar if all or one components throws an error
   useEffect(() => {
     if (errorProducts || errorProduct) {
@@ -85,19 +104,19 @@ const Error = () => {
     }
   }, [errorProducts, errorProduct]);
 
-  // Show snackbar users component throws an error
+  // Show snackbar if all or one components throws an error
   // isMounted.current starts off as false so the first runthrough of the useEffect hook won’t call setOpen(true)
   // Instead, it will set isMounted.current to true
   // On subsequent runs of the hook, isMounted.current will be true and setOpen(true) will be executed
   useEffect(() => {
     if (isMounted.current) {
-      if (errorUsers || errorCart) {
+      if (errorUsers || errorCart || errorPayment) {
         setOpen(true);
       }
     } else {
       setTimeout(() => (isMounted.current = true), 1000);
     }
-  }, [errorUsers, errorCart]);
+  }, [errorUsers, errorCart, errorPayment]);
 
   return (
     <Snackbar

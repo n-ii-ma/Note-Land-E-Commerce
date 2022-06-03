@@ -80,6 +80,7 @@ export const checkout = createAsyncThunk(
 const initialState = {
   cartProducts: [],
   cartMessage: {},
+  checkoutMessage: {},
   cartQuantity: 0,
   isLoading: false,
   hasError: false,
@@ -110,6 +111,7 @@ const cartSlice = createSlice({
       })
       .addCase(addProductToCart.fulfilled, (state, action) => {
         state.cartMessage = action.payload;
+        state.checkoutMessage = {};
         state.refreshCart = true;
         state.isLoading = false;
         state.hasError = false;
@@ -178,7 +180,7 @@ const cartSlice = createSlice({
         state.refreshCart = false;
       })
       .addCase(checkout.fulfilled, (state, action) => {
-        state.cartMessage = action.payload;
+        state.checkoutMessage = action.payload;
         state.cartProducts = [];
         state.cartQuantity = 0;
         state.refreshCart = false;
@@ -197,6 +199,7 @@ const cartSlice = createSlice({
 // Selectors
 export const selectCartProducts = (state) => state.cart.cartProducts;
 export const selectCartMessage = (state) => state.cart.cartMessage;
+export const selectCheckoutMessage = (state) => state.cart.checkoutMessage;
 export const selectErrorMessageCart = (state) => state.cart.errorMessage;
 export const selectCartQuantity = (state) => state.cart.cartQuantity;
 export const selectRefreshCart = (state) => state.cart.refreshCart;
