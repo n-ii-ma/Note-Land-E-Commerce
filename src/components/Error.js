@@ -20,6 +20,10 @@ import {
   selectErrorPayment,
   selectErrorMessagePayment,
 } from "../features/payment/paymentSlice";
+import {
+  selectErrorOrders,
+  selectErrorMessageOrders,
+} from "../features/orders/ordersSlice";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -51,16 +55,21 @@ const Error = () => {
   const cartErrorMessage = useSelector(selectErrorMessageCart);
 
   // Payment state
-  const errorPayment = useSelector(selectErrorPayment);
+  const errorPayment = useSelector(selectErrorOrders);
   const paymentErrorMessage = useSelector(selectErrorMessagePayment);
+
+  // Orders state
+  const errorOrders = useSelector(selectErrorPayment);
+  const ordersErrorMessage = useSelector(selectErrorMessageOrders);
 
   // Product error message
   useEffect(() => {
-    if (
-      productErrorMessage &&
-      typeof productErrorMessage.error !== "undefined"
-    ) {
-      setErrorMessage(productErrorMessage.error.message);
+    if (productErrorMessage) {
+      setErrorMessage(
+        productErrorMessage.error
+          ? productErrorMessage.error.message
+          : productErrorMessage.message
+      );
     }
   }, [productErrorMessage]);
 
@@ -97,6 +106,17 @@ const Error = () => {
     }
   }, [paymentErrorMessage]);
 
+  // Orders error message
+  useEffect(() => {
+    if (ordersErrorMessage) {
+      setErrorMessage(
+        ordersErrorMessage.error
+          ? ordersErrorMessage.error.message
+          : ordersErrorMessage.message
+      );
+    }
+  }, [ordersErrorMessage]);
+
   // Show snackbar if all or one components throws an error
   useEffect(() => {
     if (errorProducts || errorProduct) {
@@ -110,13 +130,13 @@ const Error = () => {
   // On subsequent runs of the hook, isMounted.current will be true and setOpen(true) will be executed
   useEffect(() => {
     if (isMounted.current) {
-      if (errorUsers || errorCart || errorPayment) {
+      if (errorUsers || errorCart || errorPayment || errorOrders) {
         setOpen(true);
       }
     } else {
       setTimeout(() => (isMounted.current = true), 1000);
     }
-  }, [errorUsers, errorCart, errorPayment]);
+  }, [errorUsers, errorCart, errorPayment, errorOrders]);
 
   return (
     <Snackbar
