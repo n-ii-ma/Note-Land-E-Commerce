@@ -55,7 +55,7 @@ const Checkout = () => {
   return (
     <>
       {clientSecret && (
-        <Elements options={options} stripe={stripePromise} key={clientSecret}>
+        <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
       )}
