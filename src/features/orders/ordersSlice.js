@@ -20,7 +20,7 @@ export const getOrderDetails = createAsyncThunk(
   "orders/getOrderDetails",
   async (order_id, { rejectWithValue }) => {
     try {
-      const response = await axiosApiPrivate.get(`/orders/${order_id}`);
+      const response = await axiosApiPrivate.get(`/orders/details/${order_id}`);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -34,6 +34,7 @@ const initialState = {
   orderDetails: [],
   isLoading: false,
   hasError: false,
+  detailsLoading: false,
   errorMessage: {},
 };
 
@@ -57,17 +58,17 @@ const ordersSlice = createSlice({
         state.hasError = true;
       })
       .addCase(getOrderDetails.pending, (state) => {
-        state.isLoading = true;
+        state.detailsLoading = true;
         state.hasError = false;
       })
       .addCase(getOrderDetails.fulfilled, (state, action) => {
         state.orderDetails = action.payload;
-        state.isLoading = false;
+        state.detailsLoading = false;
         state.hasError = false;
       })
       .addCase(getOrderDetails.rejected, (state, action) => {
         state.errorMessage = action.payload;
-        state.isLoading = false;
+        state.detailsLoading = false;
         state.hasError = true;
       });
   },
