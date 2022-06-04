@@ -96,11 +96,11 @@ const NavBar = () => {
       navigate("/", { replace: true });
     }
 
-    // Clear cart
-    dispatch(clearCart());
-
     // Logout user
     dispatch(logoutUser());
+
+    // Clear cart
+    dispatch(clearCart());
 
     // Purge redux-persist state 1 second after logout
     setTimeout(() => persistor.purge(), 1000);
