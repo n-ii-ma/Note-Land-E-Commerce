@@ -10,6 +10,7 @@ import {
   selectClientSecret,
   selectLoadingPayment,
   selectErrorPayment,
+  selectErrorMessagePayment,
 } from "../features/payment/paymentSlice";
 import CheckoutForm from "./CheckoutForm";
 import { Navigate } from "react-router-dom";
@@ -19,6 +20,7 @@ const Checkout = () => {
   const clientSecret = useSelector(selectClientSecret);
   const loadingPayment = useSelector(selectLoadingPayment);
   const errorPayment = useSelector(selectErrorPayment);
+  const paymentErrorMessage = useSelector(selectErrorMessagePayment);
 
   const dispatch = useDispatch();
 
@@ -37,8 +39,17 @@ const Checkout = () => {
     loader: "always",
   };
 
-  // Show loading spinner when loading
-  if (loadingPayment)
+  // Navigate to dashboard upon address error to fill out address
+  if (
+    errorPayment &&
+    paymentErrorMessage?.error.message ===
+      "Shipping Address Has Not Been Provided!"
+  ) {
+    return <Navigate to="/dashboard" />;
+  }
+
+  // Show loading spinner when loading or getting an error
+  if (loadingPayment || errorPayment)
     return (
       <Box
         display="flex"
@@ -49,9 +60,6 @@ const Checkout = () => {
         <CircularProgress />
       </Box>
     );
-
-  // Navigate to dashboard (To fill out address) and show error message
-  if (errorPayment) return <Navigate to="/dashboard" />;
 
   return (
     <>
