@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
+import Typography from "@mui/material/Typography";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
@@ -12,7 +13,14 @@ import {
   selectLoadingUsers,
   selectErrorUsers,
 } from "../features/users/usersSlice";
+import {
+  getOrders,
+  selectOrders,
+  selectLoadingOrders,
+  selectErrorOrders,
+} from "../features/orders/ordersSlice";
 import Profile from "./Profile";
+import OrdersTable from "./OrdersTable";
 import PrivateInfo from "./PrivateInfo";
 import Address from "./Address";
 import Spinner from "./Spinner";
@@ -42,11 +50,17 @@ const Dashboard = () => {
   const loadingUsers = useSelector(selectLoadingUsers);
   const errorUsers = useSelector(selectErrorUsers);
 
+  // Orders state
+  const orders = useSelector(selectOrders);
+  const loadingOrders = useSelector(selectLoadingOrders);
+  const errorOrders = useSelector(selectErrorOrders);
+
   const dispatch = useDispatch();
 
-  // Get user data by logged in user id
+  // Get user and orders data
   useEffect(() => {
     dispatch(getUser(user.user.user_id));
+    dispatch(getOrders(user.user.user_id));
   }, [dispatch, user]);
 
   // Change tabs
@@ -83,7 +97,22 @@ const Dashboard = () => {
               {loadingUsers || errorUsers ? <Spinner /> : <Profile />}
             </TabPanel>
             <TabPanel value={value} index={1}>
-              Nothing to Show
+              {loadingOrders || errorOrders ? (
+                <Spinner />
+              ) : !orders?.length ? (
+                <Typography
+                  align="center"
+                  variant="h5"
+                  component="h5"
+                  sx={{
+                    fontSize: { xs: "1.05rem", md: "1.25rem" },
+                  }}
+                >
+                  Order Record Is Empty
+                </Typography>
+              ) : (
+                <OrdersTable />
+              )}
             </TabPanel>
             <TabPanel value={value} index={2}>
               {loadingUsers || errorUsers ? <Spinner /> : <PrivateInfo />}
