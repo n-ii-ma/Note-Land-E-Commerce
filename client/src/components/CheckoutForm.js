@@ -14,11 +14,13 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Button from "@mui/material/Button";
+import Skeleton from "@mui/material/Skeleton";
 
 import {
   checkout,
   selectCartProducts,
   selectCheckoutMessage,
+  selectLoadingCart,
 } from "../features/cart/cartSlice";
 import { selectUser } from "../features/users/usersSlice";
 
@@ -37,6 +39,7 @@ const CheckoutForm = () => {
   // Cart state
   const cartProducts = useSelector(selectCartProducts);
   const checkoutMessage = useSelector(selectCheckoutMessage);
+  const loadingCart = useSelector(selectLoadingCart);
 
   const dispatch = useDispatch();
 
@@ -109,13 +112,23 @@ const CheckoutForm = () => {
             variant="body1"
             component="p"
             sx={{
+              display: "inline-flex",
               fontWeight: "bold",
               fontFamily: "quicksand",
               marginBottom: "1em",
               fontSize: "1.1rem",
             }}
           >
-            Order Number: {checkoutMessage.order?.order_number}
+            Order Number:{" "}
+            {loadingCart ? (
+              <Skeleton
+                variant="text"
+                width={20}
+                sx={{ marginLeft: "0.2em" }}
+              />
+            ) : (
+              checkoutMessage.order?.order_number
+            )}
           </Typography>
           <Button LinkComponent={Link} to="/" variant="contained">
             Continue Shopping
