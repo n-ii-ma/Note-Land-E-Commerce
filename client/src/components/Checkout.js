@@ -55,7 +55,7 @@ const Checkout = () => {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        sx={{ padding: { xs: "3.65em 8.5em", sm: "3.65em 9.4em" } }}
+        sx={{ padding: { xs: "3.65em 7.3em", sm: "3.65em 9.4em" } }}
       >
         <CircularProgress />
       </Box>
