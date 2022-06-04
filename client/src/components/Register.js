@@ -18,7 +18,7 @@ import {
   registerUser,
   selectRegisteredState,
   selectLoadingUsers,
-  clearRegistered,
+  clearRegisteredState,
 } from "../features/users/usersSlice";
 import LoadingBackdrop from "./LoadingBackdrop";
 import { registrationSchema } from "../config/validationSchema";
@@ -46,7 +46,7 @@ const Register = () => {
       navigate("/auth/login", { replace: true });
 
       // Clear register state so that a not signed in user can navigate to the register page
-      dispatch(clearRegistered());
+      dispatch(clearRegisteredState());
     }
   }, [navigate, dispatch, registeredState]);
 

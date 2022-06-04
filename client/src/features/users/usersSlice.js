@@ -150,8 +150,11 @@ const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    clearRegistered: (state) => {
+    clearRegisteredState: (state) => {
       state.isRegistered = false;
+    },
+    clearUpdateState: (state) => {
+      state.isUpdated = false;
     },
   },
   extraReducers: (builder) => {
@@ -318,7 +321,7 @@ export const selectErrorUsers = (state) => state.users.hasError;
 export const selectErrorMessageUsers = (state) => state.users.errorMessage;
 
 // Action
-export const { clearRegistered } = usersSlice.actions;
+export const { clearRegisteredState, clearUpdateState } = usersSlice.actions;
 
 // Reducer
 export default usersSlice.reducer;

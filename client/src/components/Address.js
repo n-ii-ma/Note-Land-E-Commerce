@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,14 +8,31 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import { updateAddressSchema } from "../config/validationSchema";
-import { updateUserAddress, selectOneUser } from "../features/users/usersSlice";
+import {
+  getUser,
+  updateUserAddress,
+  clearUpdateState,
+  selectOneUser,
+  selectUpdateState,
+} from "../features/users/usersSlice";
 import { resetError } from "../features/payment/paymentSlice";
 
 const Address = () => {
   // User state
   const userInfo = useSelector(selectOneUser);
+  const updateState = useSelector(selectUpdateState);
 
   const dispatch = useDispatch();
+
+  // Refresh user after address update
+  useEffect(() => {
+    if (updateState) {
+      dispatch(getUser(userInfo.user_id));
+    }
+
+    // Clear update state
+    return () => dispatch(clearUpdateState());
+  }, [dispatch, updateState, userInfo]);
 
   // useForm hook
   const {

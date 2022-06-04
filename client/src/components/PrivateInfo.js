@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,15 +9,29 @@ import Button from "@mui/material/Button";
 
 import { updatePrivateSchema } from "../config/validationSchema";
 import {
+  getUser,
   updateUserPrivateInfo,
+  clearUpdateState,
   selectOneUser,
+  selectUpdateState,
 } from "../features/users/usersSlice";
 
 const PrivateInfo = () => {
   // User state
   const userInfo = useSelector(selectOneUser);
+  const updateState = useSelector(selectUpdateState);
 
   const dispatch = useDispatch();
+
+  // Refresh user after info update
+  useEffect(() => {
+    if (updateState) {
+      dispatch(getUser(userInfo.user_id));
+    }
+
+    // Clear update state
+    return () => dispatch(clearUpdateState());
+  }, [dispatch, updateState, userInfo]);
 
   // useForm hook
   const {
