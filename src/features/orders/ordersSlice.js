@@ -21,7 +21,14 @@ export const getOrderDetails = createAsyncThunk(
   async (order_id, { rejectWithValue }) => {
     try {
       const response = await axiosApiPrivate.get(`/orders/details/${order_id}`);
-      return response.data;
+      const data = response.data;
+      return data.map((product) => ({
+        product_id: product.product_id,
+        name: product.name,
+        quantity: product.quantity,
+        color: product.color,
+        price: product.price,
+      }));
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
