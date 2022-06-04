@@ -159,6 +159,7 @@ const usersSlice = createSlice({
       .addCase(registerUser.pending, (state) => {
         state.isLoading = true;
         state.hasError = false;
+        state.userMessage = {};
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.user = action.payload;
@@ -178,6 +179,7 @@ const usersSlice = createSlice({
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
         state.hasError = false;
+        state.userMessage = {};
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.user = action.payload;
@@ -197,6 +199,7 @@ const usersSlice = createSlice({
       .addCase(logoutUser.pending, (state) => {
         state.isLoading = true;
         state.hasError = false;
+        state.userMessage = {};
       })
       .addCase(logoutUser.fulfilled, (state, action) => {
         state.userMessage = action.payload;
@@ -277,6 +280,7 @@ const usersSlice = createSlice({
       .addCase(deleteUser.pending, (state) => {
         state.isLoading = true;
         state.hasError = false;
+        state.userMessage = {};
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
         state.userMessage = action.payload;
