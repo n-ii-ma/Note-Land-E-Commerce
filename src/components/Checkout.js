@@ -34,6 +34,7 @@ const Checkout = () => {
   const options = {
     clientSecret,
     appearance,
+    loader: "always",
   };
 
   // Show loading spinner when loading
