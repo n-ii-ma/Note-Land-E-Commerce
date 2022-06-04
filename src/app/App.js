@@ -78,7 +78,7 @@ function App() {
           <Route
             path="/auth/login"
             element={
-              <RestrictedRoutes redirectTo="/">
+              <RestrictedRoutes redirectTo="/dashboard">
                 <Login />
               </RestrictedRoutes>
             }
@@ -86,7 +86,7 @@ function App() {
           <Route
             path="/auth/register"
             element={
-              <RestrictedRoutes redirectTo="/">
+              <RestrictedRoutes redirectTo="/dashboard">
                 <Register />
               </RestrictedRoutes>
             }
