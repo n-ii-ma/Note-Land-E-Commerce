@@ -75,14 +75,7 @@ function App() {
             }
           />
           <Route path="/product/:product_id" element={<ProductDetails />} />
-          <Route
-            path="/auth/login"
-            element={
-              <RestrictedRoutes redirectTo="/">
-                <Login />
-              </RestrictedRoutes>
-            }
-          />
+          <Route path="/auth/login" element={<Login />} />
           <Route
             path="/auth/register"
             element={
