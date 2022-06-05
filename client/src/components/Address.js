@@ -28,10 +28,10 @@ const Address = () => {
   useEffect(() => {
     if (updateState) {
       dispatch(getUser(userInfo.user_id));
-    }
 
-    // Clear update state
-    return () => dispatch(clearUpdateState());
+      // Clear update state
+      dispatch(clearUpdateState());
+    }
   }, [dispatch, updateState, userInfo]);
 
   // useForm hook
